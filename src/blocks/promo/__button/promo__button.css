@@ -1,0 +1,20 @@
+.promo__button{
+   width: 129px; 
+   height: 36px;
+   color: #FFFFFF;
+
+   font-weight: 500;
+   font-size: 12px;
+
+   cursor: pointer;
+   border: 1px solid rgba(255, 255, 255, 0.6);
+   border-radius: 3px;
+   background-color: transparent;
+   transition-duration: 0.4s;
+}
+
+.promo__button:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.7;
+  }
