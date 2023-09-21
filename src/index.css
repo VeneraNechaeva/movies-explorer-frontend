@@ -1,16 +1,24 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
 
-@import url(./blocks/page/page.css);
-@import url(./blocks/page/__container/page__container.css);
+@import url(./components/App/App.css);
 
-@import url(./blocks/header/header.css);
-@import url(./blocks/header/__logo/header__logo.css);
+@import url(./components/Header/Header.css);
 
-@import url(./blocks/content/content.css);
+@import url(./components/Main/Main.css);
 
-@import url(./blocks/promo/promo.css);
-@import url(./blocks/promo/__title/promo__title.css);
-@import url(./blocks/promo/__subtitle/promo__subtitle.css);
-@import url(./blocks/promo/__logo/promo__logo.css);
-@import url(./blocks/promo/__button/promo__button.css);
+@import url(./components/Promo/Promo.css);
+
+/* @import url(./components/Paragraph/Paragraph.css); */
+
+@import url(./components/AboutProject/AboutProject.css);
+
+@import url(./components/Techs/Techs.css);
+
+@import url(./components/AboutMe/AboutMe.css);
+
+@import url(./components/Portfolio/Portfolio.css);
+
+@import url(./components/Footer/Footer.css);
+
+
