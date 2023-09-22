@@ -66,7 +66,23 @@
     font-size: 14px;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 800px) {
+    .techs {
+        padding-top: 91px;
+        padding-bottom: 90px;
+    }
+    
+    .techs__title {
+        margin-top: 80px;
+    }
+
+    .techs__subtitle {
+        padding-top: 22px;
+        padding-bottom: 83px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
     .techs__list {
         grid-template-columns: 84px 84px 84px 84px 84px 84px 84px;
     }
@@ -74,6 +90,10 @@
     .techs__element {
         width: 84px;
         height: 57px;
+    }
+
+    .techs__element-text {
+        font-size: 12px;
     }
 }
 

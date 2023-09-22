@@ -86,3 +86,25 @@
     font-size: 14px;
     text-align: center;
 }
+
+@media screen and (max-width: 800px) {
+    .about-roject {
+        padding-top: 90px;
+        padding-bottom: 90px;
+    }
+
+    .about-roject__subtitle {
+        margin: 0;
+        margin-top: 22px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .about-roject__text-container {
+        padding-bottom: 93px;
+    }
+
+    .about-roject__timeline {
+        grid-template-columns: 21% 79%;
+    }
+}

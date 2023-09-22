@@ -61,3 +61,38 @@
     max-height: 327px;
     border-radius: 10px;
 }
+
+@media screen and (max-width: 800px) {
+    .about-me {
+        padding-top: 90px;
+    }
+
+    .about-me__container {
+        padding-top: 68px;
+    }
+
+    .about-me__name {
+        font-size: 40px;
+        line-height: 40px;
+    }
+
+    .about-me__profession {
+        margin-top: 16px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .about-me__info {
+        margin-top: 20px;
+        margin-bottom: 87px;
+        font-size: 12px;
+        line-height: 18px;
+        max-width: 360px;
+    }
+
+    .about-me__avatar {
+        min-width: 255px;
+        max-height: 307px;
+        border-radius: 10px;
+    }
+}

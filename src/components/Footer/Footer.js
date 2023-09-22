@@ -6,7 +6,7 @@ function Footer() {
     let date = new Date().getFullYear();
 
     return (
-        <section className="footer page__padding">
+        <section className="footer page__padding_min">
             <h2 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
             <div className="footer__copyright">
                 <p className="footer__date">© {date}</p>

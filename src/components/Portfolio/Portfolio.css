@@ -56,3 +56,14 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+
+@media screen and (max-width: 800px) {
+    .portfolio {
+        padding-top: 90px;
+        padding-bottom: 92px;
+    }
+
+    .portfolio__link-text {
+        letter-spacing: -2.3px;
+    }
+}
