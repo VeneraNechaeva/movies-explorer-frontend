@@ -1,6 +1,6 @@
-.footer{
-padding-top: 60px;
-padding-bottom: 20px;
+.footer {
+    padding-top: 60px;
+    padding-bottom: 20px;
 }
 
 .footer__title {
@@ -21,9 +21,11 @@ padding-bottom: 20px;
 
 .footer__date {
     margin: 0;
+    font-weight: 400;
+    font-size: 13px;
 }
 
-.footer__text {
+.footer__text-container {
     display: flex;
 }
 

@@ -10,7 +10,7 @@ function Footer() {
             <h2 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
             <div className="footer__copyright">
                 <p className="footer__date">© {date}</p>
-                <div className="footer__text">
+                <div className="footer__text-container">
                     <p className="footer__text-elem">Яндекс.Практикум</p>
                     <p className="footer__text-elem">Github</p>
                 </div>

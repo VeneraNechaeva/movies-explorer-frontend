@@ -12,6 +12,8 @@
     margin-bottom: 23px;
     font-weight: 400;
     font-size: 22px;
+    letter-spacing: -1px;
+    line-height: 26.63px;
 }
 
 .about-roject__container {
@@ -29,6 +31,8 @@
     margin: 0;
     font-weight: 400;
     font-size: 20px;
+    letter-spacing: -0.8px;
+    line-height: 24.2px;
 }
 
 .about-roject__subtitle {
@@ -36,14 +40,13 @@
     margin-top: 26px;
     font-weight: 400;
     font-size: 14px;
+    line-height: 20px;
 }
 
 .about-roject__timeline {
     display: grid;
     grid-template-columns: 20% 80%;
 }
-
-.about-roject__timeline-container {}
 
 .about-roject__timeline-elem_min {
     background: #3DDC84;
@@ -66,6 +69,7 @@
     color: #000000;
     font-weight: 400;
     font-size: 14px;
+
 }
 
 .about-roject__timeline-time_max {

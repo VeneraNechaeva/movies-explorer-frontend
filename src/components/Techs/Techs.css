@@ -1,6 +1,6 @@
 .techs {
     background: #272727;
-    padding-top: 110px;
+    padding-top: 100px;
     padding-bottom: 100px;
 }
 
@@ -13,6 +13,8 @@
     margin-bottom: 23px;
     font-weight: 400;
     font-size: 22px;
+    letter-spacing: -1px;
+    line-height: 26.63px;
 }
 
 .techs__container {
@@ -26,14 +28,20 @@
     margin-top: 90px;
     font-weight: 400;
     font-size: 50px;
+    letter-spacing: -1.5px;
+    line-height: 58px;
 }
 
 .techs__subtitle {
     margin: 0;
-    padding-top: 26px;
+    padding-top: 28px;
     padding-bottom: 100px;
     font-weight: 400;
     font-size: 14px;
+    letter-spacing: -0.5px;
+    line-height: 20px;
+    max-width: 460px;
+    text-align: center
 }
 
 .techs__list {
@@ -62,6 +70,7 @@
     .techs__list {
         grid-template-columns: 84px 84px 84px 84px 84px 84px 84px;
     }
+
     .techs__element {
         width: 84px;
         height: 57px;
