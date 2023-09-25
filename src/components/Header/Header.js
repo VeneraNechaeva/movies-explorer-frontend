@@ -3,7 +3,7 @@ import headerLogo from '../Vector-header-logo.svg';
 function Header() {
 
 return (
-    <header className="header page__padding_min">
+    <header className="header page__padding-min">
         <img
             className="header__logo"
             src={headerLogo}

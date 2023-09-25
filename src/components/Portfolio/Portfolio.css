@@ -22,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(66, 66, 66, 1);
+    border-bottom: 1px solid #424242;
 }
 
 .portfolio__link-container:last-of-type {
@@ -63,7 +63,43 @@
         padding-bottom: 92px;
     }
 
+    .portfolio__title {
+        color: #A0A0A0;
+    }
+
     .portfolio__link-text {
         letter-spacing: -2.3px;
     }
+
+    .portfolio__link-container {
+        border-bottom: 1px solid #E6E6E6;
+    }
 }
+
+@media screen and (max-width: 400px) {
+    .portfolio {
+        padding-top: 70px;
+        padding-bottom: 70px;
+    }
+
+    .portfolio__title {
+        font-size: 14px;
+        margin-bottom: 23px;
+    }
+
+    .portfolio__link-text {
+        margin-top: 20px;
+        margin-bottom: 18px;
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: -0.8px;
+    }
+
+    .portfolio__icon-link {
+        width: 18px;
+        height: 28px;
+        background-size: 10px 10px;
+    }
+}
+
+

@@ -1,6 +1,6 @@
 function Portfolio() {
     return (
-        <section className="portfolio page__padding">
+        <section className="portfolio page__padding-midl">
             <h2 className="portfolio__title">Портфолио</h2>
             <ul className="portfolio__list-link">
                 <li className="portfolio__link-container">
@@ -25,12 +25,6 @@ function Portfolio() {
 
 export default Portfolio;
 
-
-{/* <img
-className="portfolio__icon-link"
-src={Iconlink}
-alt="Фото студента"
-/> */}
 
 
 

@@ -2,7 +2,7 @@ import Photo from '../impermanent-AJFGf9T9nhQ-unsplash.jpg';
 
 function AboutMe() {
     return (
-        <section className="about-me page__padding">
+        <section className="about-me page__padding-midl">
             <div className="about-me__paragraph">
                 <p className="about-me__paragraph-text">Студент</p>
             </div>

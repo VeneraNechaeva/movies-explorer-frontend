@@ -1,6 +1,6 @@
 function Techs() {
     return (
-        <section className="techs page__padding">
+        <section className="techs page__padding-max">
             <div className="techs__paragraph">
                 <p className="techs__paragraph-text">Технологии</p>
             </div>

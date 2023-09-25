@@ -105,8 +105,37 @@
 }
 
 @media screen and (max-width: 400px) {
+    .techs {
+        background: #202020;
+        padding-top: 70px;
+        padding-bottom: 70px;
+    }
+    
+    .techs__paragraph {
+        border-bottom: 1px solid #000000;
+    }
+
+    .techs__paragraph-text {
+        font-size: 18px;
+        letter-spacing: -1px;
+    }
+    
     .techs__list {
         grid-template-columns: 84px 84px;
         grid-template-rows: 57px 57px 57px 57px;
+    }
+
+    .techs__title {
+        margin-top: 60px;
+        font-size: 30px;
+        letter-spacing: -1.5px;
+        line-height: 36.31px;
+    }
+
+    .techs__subtitle {
+        padding-top: 24px;
+        padding-bottom: 50px;
+        font-size: 11px;
+        line-height: 17px;
     }
 }

@@ -98,3 +98,31 @@
     margin-top: 92px;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .promo {
+    padding-top: 70px;
+    padding-bottom: 30px;
+  }
+
+  .promo__logo {
+    margin-bottom: 44px;
+    width: 210px;
+    height: 206px;
+  }
+
+  .promo__title {
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -1px;
+    min-width: 300px;
+  }
+
+  .promo__subtitle {
+    margin-top: 24px;
+  }
+
+  .promo__button {
+    margin-top: 80px;
+  }
+}

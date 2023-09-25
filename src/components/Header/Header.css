@@ -40,6 +40,7 @@
     background-color: #3DDC84;
     cursor: pointer;
     transition-duration: 0.4s;
+    border: none;
 }
 
 .header__button:hover {
@@ -48,8 +49,18 @@
     opacity: 0.8;
   }
 
-/* @media screen and (max-width: 600px) {
-    .header {
-        padding-bottom: 28px;
+@media screen and (max-width: 400px) {
+    .header__link {
+        font-size: 10px;
     }
-} */
+    
+    .header__link {
+        margin-right: 14px;
+    }
+
+    .header__button {
+        width: 54px;
+        height: 26px;
+        font-size: 10px;
+}
+}

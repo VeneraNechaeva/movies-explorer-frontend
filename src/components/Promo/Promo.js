@@ -2,7 +2,7 @@ import PromoLogo from '../Vector-promo-logo.svg';
 
 function Promo() {
     return (
-        <section className="promo page__padding">
+        <section className="promo page__padding-max">
             <div className="promo__container">
                 <div className="promo__text-container">
                     <h1 className="promo__title">Учебный проект студента факультета
