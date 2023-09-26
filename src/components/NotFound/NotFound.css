@@ -29,6 +29,13 @@
     line-height: 15px;
     color: #4285F4;
     text-decoration: none;
+    transition-duration: 0.4s;
+}
+
+.error__link:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.7;
 }
 
 @media screen and (max-width: 800px) {

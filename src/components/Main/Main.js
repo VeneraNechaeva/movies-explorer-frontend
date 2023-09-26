@@ -1,5 +1,4 @@
 import Promo from '../Promo/Promo.js';
-// import Paragraph from '../Paragraph/Paragraph.js';
 import AboutProject from '../AboutProject/AboutProject.js';
 import Techs from '../Techs/Techs.js';
 import AboutMe from '../AboutMe/AboutMe.js';
