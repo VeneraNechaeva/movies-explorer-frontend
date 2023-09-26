@@ -1,22 +1,45 @@
-import Header from '../Header/Header.js';
-import Main from '../Main/Main.js';
+// import React, { useState, useEffect } from 'react';
+import { useNavigate, Route, Routes, Navigate } from 'react-router-dom';
 
-import Footer from '../Footer/Footer.js';
+// Импортируем компоненты приложения, которые используем в Роутах
+import Main from '../Main/Main.js';
+import Register from '../Register/Register.js';
+import Login from '../Login/Login.js';
+import Movies from '../Movies/Movies.js';
+import SavedMovies from '../SavedMovies/SavedMovies.js';
+import Profile from '../Profile/Profile.js';
+import NotFound from '../NotFound/NotFound.js';
+
+// import ProtectedRoute from './ProtectedRoute.js';
+// import InfoTooltip from './InfoTooltip.js';
 
 function App() {
   return (
     <div className="page">
       <div className="page__container">
-        <Header />
 
-        <Main />
+        <Routes>
 
-        <Footer ></Footer >
+          <Route path="/" element={<Main />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/saved-movies" element={<SavedMovies />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NotFound />} />
+
+        </Routes>
+
       </div></div>
   );
 }
 
 export default App;
+
+
+
+
+
 
 
 // // Компоненты, которые пригодятся
