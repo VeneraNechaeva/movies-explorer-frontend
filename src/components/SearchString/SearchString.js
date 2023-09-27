@@ -1,6 +1,6 @@
 function SearchString() {
     return (
-        <form className="search page__padding-max">
+        <form className="search page__padding-min">
             <div className="search__label">
                 <input
                     id="search"
