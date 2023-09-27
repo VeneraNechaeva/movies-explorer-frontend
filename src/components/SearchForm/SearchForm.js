@@ -1,4 +1,6 @@
-function SearchString() {
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox.js';
+
+function SearchForm() {
     return (
         <form className="search page__padding-min">
             <div className="search__label">
@@ -15,12 +17,14 @@ function SearchString() {
                 <button className="search__button" type="submit">Поиск </button>
             </div>
 
-            <div className="search__switch-container">
+<FilterCheckbox></FilterCheckbox>
+
+            {/* <div className="search__switch-container">
                 <input className="search__switch" type="checkbox" id="switch" name="switch" />
                 <label className="search__text" for="switch">Короткометражки</label>
-            </div>
+            </div> */}
         </form >
     )
 }
 
-export default SearchString;
+export default SearchForm;

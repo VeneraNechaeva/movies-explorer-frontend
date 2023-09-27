@@ -21,4 +21,6 @@
 
 @import url(./components/NotFound/NotFound.css);
 
-@import url(./components/SearchString/SearchString.css);
+@import url(./components/SearchForm/SearchForm.css);
+
+@import url(./components/FilterCheckbox/FilterCheckbox.css);

@@ -1,12 +1,12 @@
 import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
-import SearchString from '../SearchString/SearchString.js';
+import SearchForm from '../SearchForm/SearchForm.js';
 
 function Movies() {
     return (
         <section className="movies-page">
             <Header />
-            <SearchString />
+            <SearchForm />
             <article className="movies">
 
             </article>
