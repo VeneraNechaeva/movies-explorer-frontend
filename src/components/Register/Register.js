@@ -1,8 +1,13 @@
+import UserForm from '../UserForm/UserForm.js';
+
 function Register() {
     return (
-<section className="register">
-            <h2 className="Register__title">Регистрация</h2>
-        </section>
+        <UserForm name="register" title="Добро пожаловать!" buttonText="Зарегистрироваться"
+            text="Уже зарегистрированы?" textLink="Войти" redirect="/signin"
+        // onSubmit={onRegister} isSubmitEnable={isValid}
+        >
+            <div className="form__label"></div>
+        </UserForm>
     )
 }
 

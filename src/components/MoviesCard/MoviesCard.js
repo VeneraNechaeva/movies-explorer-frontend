@@ -1,6 +1,4 @@
 import filmOne from '../istockphoto-1372681569-2048x2048.jpg';
-// import filmTwo from '../Vector-header-logo.svg';
-// import filmThree from '../Vector-header-logo.svg';
 
 function MoviesCard() {
     return (

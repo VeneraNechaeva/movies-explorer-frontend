@@ -9,7 +9,7 @@ import Footer from '../Footer/Footer.js';
 function Main() {
     return (
         <section className="presentation">
-            <Header />
+            <Header className="header_light"/>
             <main className="content">
                 <Promo />
                 <AboutProject />

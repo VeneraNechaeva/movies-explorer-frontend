@@ -1,8 +1,18 @@
+import UserForm from '../UserForm/UserForm.js';
+
 function Login() {
     return (
-<section className="login">
-            <h2 className="login__title">Авторизация</h2>
-        </section>
+        <UserForm name="login" title="Рады видеть!" buttonText="Войти"
+            text="Ещё не зарегистрированы?" textLink="Регистрация" redirect="/signup"
+        // onSubmit={onLogin} isSubmitEnable={isValid}
+        >
+            <div className="form__label"></div>
+        </UserForm>
+
+
+
+
+
     )
 }
 
