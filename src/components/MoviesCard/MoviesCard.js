@@ -1,4 +1,4 @@
-import filmOne from '../istockphoto-1372681569-2048x2048.jpg';
+import filmOne from '../../images/Film.jpg';
 
 function MoviesCard() {
     return (
@@ -9,7 +9,8 @@ function MoviesCard() {
             </div>
             <img className="card__image" src={filmOne} alt="«Роллинг Стоунз» в изгнании" />
             <button className="card__button">Сохранить</button>
-            {/* <button className="card__button_saved"/> */}
+            {/* <button className="card__button-saved"/> */}
+            {/* <button className="card__button-delete"/> */}
         </article >
     )
 }

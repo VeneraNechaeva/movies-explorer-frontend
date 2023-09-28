@@ -1,4 +1,4 @@
-import Photo from '../impermanent-AJFGf9T9nhQ-unsplash.jpg';
+import Photo from '../../images/Photo.jpg';
 
 function AboutMe() {
     return (

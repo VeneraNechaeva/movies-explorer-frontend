@@ -27,6 +27,10 @@
     flex-direction: column;
 }
 
+.about-roject__text-container:last-of-type {
+    padding-left: 52px;
+}
+
 .about-roject__text {
     margin: 0;
     font-weight: 400;
@@ -103,6 +107,10 @@
         padding-bottom: 93px;
     }
 
+    .about-roject__text-container:last-of-type {
+        padding-left: 38px;
+    }
+
     .about-roject__timeline {
         grid-template-columns: 21% 79%;
     }
@@ -135,13 +143,14 @@
 
     .about-roject__text-container:last-of-type {
         padding-bottom: 60px;
+        padding-left: 0;
     }
 
     .about-roject__text {
         font-size: 18px;
         line-height: 21.78px;
     }
-    
+
     .about-roject__subtitle {
         font-size: 11px;
         margin-top: 16px;
@@ -156,7 +165,7 @@
     .about-roject__timeline-elem_min {
         height: 35px;
     }
-    
+
     .about-roject__timeline-elem_max {
         height: 35px;
     }
@@ -164,13 +173,13 @@
     .about-roject__timeline-time_min {
         font-size: 11px;
     }
-    
+
     .about-roject__timeline-time_max {
         font-size: 11px;
     }
-    
+
     .about-roject__timeline-stage {
         font-size: 11px;
         margin-top: 10px;
-}
+    }
 }

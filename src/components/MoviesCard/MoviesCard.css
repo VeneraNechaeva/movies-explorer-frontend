@@ -58,20 +58,20 @@
     opacity: 0.8;
 }
 
-.card__button_saved {
+.card__button-saved {
     width: 100px;
     height: 29px;
     border-radius: 30px;
     border: none;
     background-color: #EE3465;
-    background-image: url(../Vector-icon-button-saved.svg);
+    background-image: url(../../images/Vector-icon-button-saved.svg);
     background-position: center;
     background-repeat: no-repeat;
     cursor: pointer;
     transition-duration: 0.4s;
 }
 
-.card__button_delete {}
+.card__button-delete {}
 
 
 @media screen and (max-width: 800px) {

@@ -1,4 +1,4 @@
-import PromoLogo from '../Vector-promo-logo.svg';
+import PromoLogo from '../../images/Vector-promo-logo.svg';
 
 function Promo() {
     return (

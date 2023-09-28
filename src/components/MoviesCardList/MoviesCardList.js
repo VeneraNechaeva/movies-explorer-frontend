@@ -4,6 +4,8 @@ function MoviesCardList() {
     return (
         <section className="movies page__padding">
             <div className="movies-conteiner">
+                
+                {/* Временное решение для верстки, потом удалить и переписать */}
                 <MoviesCard />
                 <MoviesCard />
                 <MoviesCard />

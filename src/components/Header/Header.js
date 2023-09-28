@@ -1,4 +1,4 @@
-import headerLogo from '../Vector-header-logo.svg';
+import headerLogo from '../../images/Vector-header-logo.svg';
 import { Link } from 'react-router-dom';
 
 function Header( { className } ) {
