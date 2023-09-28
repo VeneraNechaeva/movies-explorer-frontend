@@ -1,10 +1,10 @@
 import MoviesCard from '../MoviesCard/MoviesCard.js';
 
-function MoviesCardList() {
+function MoviesCardList({ paddingClassName }) {
     return (
         <section className="movies page__padding">
-            <div className="movies-conteiner">
-                
+            <div className={` ${paddingClassName ? paddingClassName : ""}  movies__conteiner`}>
+
                 {/* Временное решение для верстки, потом удалить и переписать */}
                 <MoviesCard />
                 <MoviesCard />
@@ -19,7 +19,6 @@ function MoviesCardList() {
                 <MoviesCard />
                 <MoviesCard />
             </div>
-            <button className="movies__button">Ещё</button>
         </section >
     )
 }
