@@ -1,7 +1,7 @@
 import headerLogo from '../Vector-header-logo.svg';
 import { Link } from 'react-router-dom';
 
-function UserForm( {name, title, buttonText, children, text, textLink,redirect, onSubmit, isSubmitEnable} ) {
+function UserForm( {name, title, buttonText, children, text, textLink, redirect, onSubmit, isSubmitEnable} ) {
     return (
         <form className="form" name={name} noValidate="" onSubmit={onSubmit}>
             <div className="form__content">

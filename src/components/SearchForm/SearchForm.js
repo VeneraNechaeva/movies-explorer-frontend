@@ -11,7 +11,7 @@ function SearchForm() {
                     name="search"
                     placeholder="Фильм"
                     required
-                // value={values.place ?? ''}
+                // value={values.movie ?? ''}
                 // onChange={handleChange}
                 />
                 <button className="search__button" type="submit">Поиск </button>
