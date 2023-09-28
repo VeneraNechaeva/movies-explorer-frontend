@@ -5,17 +5,20 @@ function Portfolio() {
             <ul className="portfolio__list-link">
                 <li className="portfolio__link-container">
                     <a className="portfolio__link-text"
-                        href="https://github.com/VeneraNechaeva/how-to-learn">Статичный сайт</a>
+                        href="https://github.com/VeneraNechaeva/how-to-learn"
+                        target="_blank" rel="noreferrer">Статичный сайт</a>
                     <div className="portfolio__icon-link"></div>
                 </li>
                 <li className="portfolio__link-container">
                     <a className="portfolio__link-text"
-                        href="https://github.com/VeneraNechaeva/russian-travel">Адаптивный сайт</a>
+                        href="https://github.com/VeneraNechaeva/russian-travel"
+                        target="_blank" rel="noreferrer">Адаптивный сайт</a>
                     <div className="portfolio__icon-link"></div>
                 </li>
                 <li className="portfolio__link-container">
                     <a className="portfolio__link-text"
-                        href="https://github.com/VeneraNechaeva/react-mesto-api-full-gha">Одностраничное приложение</a>
+                        href="https://github.com/VeneraNechaeva/react-mesto-api-full-gha"
+                        target="_blank" rel="noreferrer">Одностраничное приложение</a>
                     <div className="portfolio__icon-link"></div>
                 </li>
             </ul>

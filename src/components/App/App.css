@@ -34,6 +34,11 @@
   padding-left: 70px;
 }
 
+.page__padding {
+  padding-right: 70px;
+  padding-left: 70px;
+}
+
 @media screen and (max-width: 800px) {
   .page__padding-max {
     padding-right: 50px;
@@ -46,6 +51,11 @@
   }
 
   .page__padding-min {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  .page__padding {
     padding-right: 30px;
     padding-left: 30px;
   }
@@ -65,5 +75,10 @@
   .page__padding-min {
     padding-right: 14px;
     padding-left: 14px;
+  }
+
+  .page__padding {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 }

@@ -1,6 +1,6 @@
 .header {
     min-height: 74px;
-    background: #073042;
+    /* background: #073042; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,8 +39,8 @@
     border-radius: 3px;
     background-color: #3DDC84;
     cursor: pointer;
-    transition-duration: 0.4s;
     border: none;
+    transition-duration: 0.4s;
 }
 
 .header__button:hover {

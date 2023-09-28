@@ -9,9 +9,10 @@ function Promo() {
                         Веб-разработки.</h1>
                     <p className="promo__subtitle">Листайте ниже, чтобы узнать
                         больше про этот проект и его создателя.</p>
-                    <button className="promo__button" type="button">Узнать больше
-                        {/* onClick={onEditProfile} */}
-                    </button>
+                    <button className="promo__button" type="button" onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = "#project";
+                    }}>Узнать больше</button>
                 </div>
                 <img
                     className="promo__logo"

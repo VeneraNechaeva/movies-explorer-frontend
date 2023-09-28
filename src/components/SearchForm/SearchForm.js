@@ -17,12 +17,7 @@ function SearchForm() {
                 <button className="search__button" type="submit">Поиск </button>
             </div>
 
-<FilterCheckbox></FilterCheckbox>
-
-            {/* <div className="search__switch-container">
-                <input className="search__switch" type="checkbox" id="switch" name="switch" />
-                <label className="search__text" for="switch">Короткометражки</label>
-            </div> */}
+            <FilterCheckbox />
         </form >
     )
 }

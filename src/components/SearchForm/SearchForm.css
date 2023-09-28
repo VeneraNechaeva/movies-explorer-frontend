@@ -34,6 +34,14 @@
     color: #FFFFFF;
     font-weight: 500;
     font-size: 14px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.search__button:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 400px) {

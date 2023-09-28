@@ -1,6 +1,6 @@
 function AboutProject() {
     return (
-        <section className="about-roject page__padding-max">
+        <section className="about-roject page__padding-max" id="project">
             <div className="about-roject__paragraph">
                 <p className="about-roject__paragraph-text">О проекте</p>
             </div>
