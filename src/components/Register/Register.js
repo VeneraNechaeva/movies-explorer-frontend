@@ -7,6 +7,7 @@ function Register() {
         // onSubmit={onRegister} isSubmitEnable={isValid}
         >
             <div className="form__field-conteiner">
+                
                 <div className="form__field-content">
                     <label className="form__label" for="name">Имя</label>
                     <input
