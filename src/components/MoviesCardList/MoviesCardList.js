@@ -1,4 +1,5 @@
 import MoviesCard from '../MoviesCard/MoviesCard.js';
+// import Preloader from '../Preloader/Preloader.js';
 
 function MoviesCardList({ paddingClassName }) {
     return (
@@ -18,6 +19,7 @@ function MoviesCardList({ paddingClassName }) {
                 <MoviesCard />
                 <MoviesCard />
                 <MoviesCard />
+                {/* <Preloader /> */}
             </div>
         </section >
     )
