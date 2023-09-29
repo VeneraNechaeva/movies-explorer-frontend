@@ -1,0 +1,119 @@
+.navigation {
+    /* display: flex;
+    align-items: center;
+    border: 1px solid rgb(68, 121, 255); */
+}
+
+.navigation__unregistered {
+    display: flex;
+    align-items: center;
+}
+
+.navigation__link {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin-right: 30px;
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.navigation__link:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.7;
+}
+
+.navigation__button {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: #000000;
+    text-decoration: none;
+    text-align: center;
+    width: 76px;
+    height: 16px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 3px;
+    background-color: #3DDC84;
+    cursor: pointer;
+    border: none;
+    transition-duration: 0.4s;
+}
+
+.navigation__button:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.8;
+}
+
+.navigation__registered {
+    display: flex;
+    align-items: center;
+}
+
+.navigation__link-reg {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 400;
+    font-size: 14px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.navigation__link-reg:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.7;
+}
+
+.navigation__button-reg {
+  padding-left: 30px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.navigation__button-reg:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.7;
+}
+
+.navigation__account-logo{
+    width: 30px;
+    height: 30px;
+    margin-left: 13px;
+    border-radius: 6px;
+    background-color: #0F4157;
+    background-image: url(../../images/Vector-icon-account.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+@media screen and (max-width: 400px) {
+    .navigation__link {
+        font-size: 10px;
+    }
+
+    .navigation__link {
+        margin-right: 14px;
+    }
+
+    .navigation__button {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 54px;
+        height: 16px;
+        font-size: 10px;
+    }
+}

@@ -1,19 +1,17 @@
 import headerLogo from '../../images/Vector-header-logo.svg';
+import Navigation from '../Navigation/Navigation.js';
 import { Link } from 'react-router-dom';
 
-function Header( { className } ) {
-
+function Header({ className }) {
     return (
         <header className={` ${className ? className : "header"}  page__padding-min`}>
-            <img
-                className="header__logo"
-                src={headerLogo}
-                alt="сервис Movies"
-            />
-            <div className="header__tex-conteiner">
-                <Link className="header__link" to="/signup">Регистрация</Link>
-                <Link className="header__button" to="/signin">Войти</Link>
-            </div>
+            <Link className="header__logo" to="/">
+                <img
+                    className="header__logo-img"
+                    src={headerLogo}
+                    alt="сервис Movies" />
+            </Link>
+            <Navigation />
         </header>
     )
 }
