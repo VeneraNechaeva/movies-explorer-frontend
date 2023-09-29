@@ -48,7 +48,8 @@
 
 .form__button_disabled {
     color: #C2C2C2;
-    background-color: #F8F8F8;
+    background-color: #5d82bc;
+    pointer-events: none;
 }
 
 .form__text {
@@ -66,7 +67,6 @@
     font-weight: 400;
     font-size: 14px;
     transition-duration: 0.4s;
-
 }
 
 .form__link:hover {

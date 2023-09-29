@@ -44,6 +44,12 @@
     opacity: 0.8;
 }
 
+.search__button_disabled {
+    color: #C2C2C2;
+    background-color: #5d82bc;
+    pointer-events: none;
+}
+
 @media screen and (max-width: 400px) {
     .search__label {
         min-height: 54px;

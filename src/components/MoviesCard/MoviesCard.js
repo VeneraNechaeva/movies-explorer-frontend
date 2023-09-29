@@ -9,8 +9,10 @@ function MoviesCard() {
             </div>
             <img className="card__image" src={filmOne} alt="«Роллинг Стоунз» в изгнании" />
             <button className="card__button">Сохранить</button>
-            {/* <button className="card__button-saved"/> */}
-            {/* <button className="card__button-delete"/> */}
+
+            {/* <button className="card__button card__button_deletes"></button> */}
+            {/* <button className="card__button_saved"/> */}
+            {/* <button className="card__button_delete"/> */}
         </article >
     )
 }

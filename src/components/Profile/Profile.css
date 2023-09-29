@@ -1,0 +1,118 @@
+.profile {}
+
+.profile__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 74px;
+}
+
+.profile__title {
+    margin: 0;
+    margin-bottom: 125px;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.profile__field-conteiner{}
+
+.profile__field-content {
+    border-bottom: 1px solid #424242;
+    padding-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    min-width: 410px;
+}
+
+.profile__field-content:last-of-type {
+    border-bottom: none;
+    margin-top: 17px;
+}
+
+.profile__label {
+    font-weight: 500;
+    font-size: 11px;
+}
+
+.profile__field {
+    font-weight: 500;
+    font-size: 11px;
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    text-align: right;
+}
+
+.profile__button {
+    margin-top: 203px;
+    margin-bottom: 16px;
+    font-weight: 400;
+    font-size: 13px;
+    color: #FFFFFF;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.profile__button:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.8;
+}
+
+.profile__button_disabled {
+    color: #8B8B8B;
+    pointer-events: none;
+}
+
+.profile__link {
+    font-weight: 500;
+    font-size: 13px;
+    color: #EE3465;
+    text-decoration: none;
+    transition-duration: 0.4s;
+}
+
+.profile__link:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 800px) {
+    .profile__form {
+        padding-top: 237px;
+    }
+
+    .profile__title {
+        margin-bottom: 96px;
+    }
+
+    .profile__button {
+        margin-top: 195px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile__form {
+        padding-top: 70px;
+    }
+    
+    .profile__field-content {
+        min-width: 260px;
+    }
+
+    .profile__title {
+        margin-bottom: 80px;
+    }
+
+    .profile__button {
+        margin-top: 362px;
+        font-size: 12px;
+    }
+
+    .profile__link {
+        font-size: 12px;
+    }
+}

@@ -9,12 +9,12 @@
     justify-content: center;
 }
 
-.movies__padding-min{
+.movies__padding-min {
     padding-bottom: 10px;
 }
 
-.movies__padding-max{
-    padding-bottom: 250px;
+.movies__padding-max {
+    padding-bottom: 245px;
 }
 
 @media screen and (max-width: 800px) {
@@ -24,11 +24,11 @@
         justify-content: center;
     }
 
-    .movies__padding-max{
+    .movies__padding-max {
         padding-bottom: 190px;
     }
 
-    .movies__padding-min{
+    .movies__padding-min {
         padding-bottom: 30px;
     }
 }
@@ -44,7 +44,7 @@
         justify-content: center;
     }
 
-    .movies__padding-max{
+    .movies__padding-max {
         padding-bottom: 187px;
     }
 }

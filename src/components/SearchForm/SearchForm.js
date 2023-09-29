@@ -1,8 +1,8 @@
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox.js';
 
-function SearchForm() {
+function SearchForm({ onSubmit, isSubmitEnable }) {
     return (
-        <form className="search page__padding-min">
+        <form className="search page__padding-min" onSubmit={onSubmit}>
             <div className="search__label">
                 <input
                     id="search"
@@ -14,7 +14,8 @@ function SearchForm() {
                 // value={values.movie ?? ''}
                 // onChange={handleChange}
                 />
-                <button className="search__button" type="submit">Поиск </button>
+                <button className={`search__button ${isSubmitEnable ? "" : "form__button_disabled"}`}
+                 type="submit" disabled={isSubmitEnable ? "" : "disabled"}>Поиск </button>
             </div>
 
             <FilterCheckbox />
