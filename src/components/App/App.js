@@ -1,4 +1,4 @@
-// import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Route, Routes, Navigate } from 'react-router-dom';
 
 // Импортируем компоненты приложения, которые используем в Роутах
@@ -10,69 +10,47 @@ import SavedMovies from '../SavedMovies/SavedMovies.js';
 import Profile from '../Profile/Profile.js';
 import NotFound from '../NotFound/NotFound.js';
 
-// import ProtectedRoute from './ProtectedRoute.js';
-// import InfoTooltip from './InfoTooltip.js';
+// Импортируем объект контекста 
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
+
+  // Стейт для контекста текущего пользователя
+  const [currentUser, setCurrentUser] = useState({});
+
+  // ВРЕМЕННОЕ РЕШЕНИЕ
+
+
+  // Метод, который поменяет статус пользователя
+  function handleLogin(e) {
+    e.preventDefault();
+    setCurrentUser({
+      loggedIn: true
+    })
+  }
+
   return (
-    <div className="page">
-      <div className="page__container">
+    // Используем провайдер контекста текущего пользователя
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <div className="page__container">
 
-        <Routes>
+          <Routes>
 
-          <Route path="/" element={<Main />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/signin" element={<Login />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/saved-movies" element={<SavedMovies />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/signup" element={<Register />} />
+            <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/saved-movies" element={<SavedMovies />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
 
-        </Routes>
+          </Routes>
 
+        </div>
       </div>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 
 export default App;
-
-
-
-
-
-
-
-// // Компоненты, которые пригодятся
-// // Удалить потом
-// <App>
-//   <Register></Register>
-//   <Login></Login>
-//   <Profile></Profile>
-//   <Header ></Header >
-//   <Navigation></Navigation>
-
-//   <Main>
-//     <Promo></Promo >
-//     <NavTab></NavTab>
-//     <AboutProject></AboutProject>
-//     <Techs></Techs>
-//     <AboutMe></AboutMe>
-//     <Portfolio></Portfolio>
-//   </Main>
-
-//   <Movies>
-//     <SearchForm></SearchForm>
-//     <FilterCheckbox></FilterCheckbox>
-//     <Preloader></Preloader>
-//     <MoviesCardList></MoviesCardList>
-//     <MoviesCard></MoviesCard>
-//   </Movies>
-
-//   <SavedMovies>
-//     <MoviesCardList></MoviesCardList>
-//     <MoviesCard></MoviesCard>
-//   </SavedMovies>
-
-//   <Footer ></Footer >
-// </App>
