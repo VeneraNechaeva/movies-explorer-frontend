@@ -18,15 +18,19 @@ function App() {
   // Стейт для контекста текущего пользователя
   const [currentUser, setCurrentUser] = useState({});
 
-  // ВРЕМЕННОЕ РЕШЕНИЕ
 
-
+  // ВРЕМЕННОЕ РЕШЕНИЕ ДЛЯ ОТРИСОВКИ МИНЮ НАВИГАЦИИ
   // Метод, который поменяет статус пользователя
   function handleLogin(e) {
     e.preventDefault();
-    setCurrentUser({
-      loggedIn: true
-    })
+    setCurrentUser(()=>  ({
+      email: "qwe@qwe.ru"
+     }))
+  }
+
+  function handleSignOut(e) {
+    e.preventDefault();
+    setCurrentUser(()=>  ({}))
   }
 
   return (
@@ -42,7 +46,7 @@ function App() {
             <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/saved-movies" element={<SavedMovies />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile handleSignOut={handleSignOut}/>} />
             <Route path="*" element={<NotFound />} />
 
           </Routes>

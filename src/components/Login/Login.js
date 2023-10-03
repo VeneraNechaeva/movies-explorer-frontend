@@ -25,7 +25,6 @@ function Login({ handleLogin }) {
         navigate('/movies', { replace: true });
     }
 
-
     return (
         <UserForm name="login" title="Рады видеть!" buttonText="Войти"
             text="Ещё не зарегистрированы?" textLink="Регистрация" redirect="/signup"

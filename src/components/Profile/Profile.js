@@ -1,11 +1,33 @@
+import React, { useEffect } from 'react';
 import Header from '../Header/Header.js';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
-function Profile({ onSubmit, isSubmitEnable }) {
+function Profile({ handleSignOut, onSubmit}) {
+
+    // Запуск валидации
+    const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
+
+    // Хук возвращает функцию, которая позволяет рограммно перемещаться
+    const navigate = useNavigate();
+
+    // Очистка полей от ошибок
+    useEffect(() => {
+        resetForm();
+    }, []);
+
+    // Обработчик авторизации
+    const signOut = (e) => {
+        e.preventDefault();
+        resetForm();
+        handleSignOut(e);
+        navigate('/', { replace: true });
+    }
+
     return (
         <section className="profile">
             <Header />
-            <form className="profile__form" name="profile" noValidate="" onSubmit={onSubmit}>
+            <form className="profile__form" name="profile" noValidate="" onSubmit={onSubmit} isSubmitEnable={isValid}>
                 <h2 className="profile__title">Привет, Виталий!</h2>
 
                 <div className="profile__field-conteiner">
@@ -19,11 +41,11 @@ function Profile({ onSubmit, isSubmitEnable }) {
                             minLength={2}
                             maxLength={40}
                             required
-                        // value={values.name ?? ''}
-                        // onChange={handleChange}
+                            value={values.name ?? ''}
+                            onChange={handleChange}
                         />
-                        {/* <span className={`form__error email-error  ${errors?.email ? "form__error_visible-user" : ""}`}>
-                    {errors?.email}</span> */}
+                        <span className={`profile__error name-error  ${errors?.name ? "profile__error_visible-user" : ""}`}>
+                            {errors?.name}</span>
                     </div>
 
                     <div className="profile__field-content">
@@ -36,17 +58,18 @@ function Profile({ onSubmit, isSubmitEnable }) {
                             minLength={2}
                             maxLength={40}
                             required
-                        // value={values.email ?? ''}
-                        // onChange={handleChange}
+                            value={values.email ?? ''}
+                            onChange={handleChange}
                         />
-                        {/* <span className={`form__error email-error  ${errors?.email ? "form__error_visible-user" : ""}`}>
-                    {errors?.email}</span> */}
+                        <span className={`profile__error email-error  ${errors?.email ? "profile__error_visible-user" : ""}`}>
+                            {errors?.email}</span>
                     </div>
                 </div>
 
-                <button className={`profile__button ${isSubmitEnable ? "" : "profile__button_disabled"}`}
-                    type="submit" disabled={isSubmitEnable ? "" : "disabled"}> Редактировать</button>
-                <Link className="profile__link" to="/" >Выйти из аккаунта</Link>
+                <button className={`profile__button ${isValid ? "" : "profile__button_disabled"}`}
+                    type="submit" disabled={isValid ? "" : "disabled"}> Редактировать</button>
+
+                <button className="profile__button-exit" type="button" onClick={signOut}> Выйти из аккаунта</button>
             </form>
         </section>
 
