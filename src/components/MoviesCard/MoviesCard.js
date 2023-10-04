@@ -8,10 +8,10 @@ function MoviesCard() {
                 <p className="card__duration">0ч 42м</p>
             </div>
             <img className="card__image" src={filmOne} alt="«Роллинг Стоунз» в изгнании" />
-            <button className="card__button">Сохранить</button>
+            {/* <button className="card__button">Сохранить</button> */}
 
 
-            {/* <button className="card__button card__button_deletes"></button> */}
+            <button className="card__button card__button_delete"></button>
             {/* <button className="card__button card__button_saved"></button> */}
 
 
