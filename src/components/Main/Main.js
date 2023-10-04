@@ -10,7 +10,7 @@ function Main() {
     return (
         <section className="presentation">
             <Header lightСlassName="header_light"/>
-            <main className="content">
+            <main className="presentation__content">
                 <Promo />
                 <AboutProject />
                 <Techs />
