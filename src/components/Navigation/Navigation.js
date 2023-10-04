@@ -1,17 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
-function Navigation({ iconСlassName, showMenu, showUnloginMenu }) {
+function Navigation({ iconСlassName, showMenu, showUnloginMenu, isBurgerMenu }) {
+
+
+
     if (showMenu) {
         return (
             <nav className="navigation__registered">
                 <ul className="navigation__list-reg">
-                    <li className="navigation__item-min"><Link className="navigation__link-reg-min" to="/">Главная</Link></li>
-                    <li className="navigation__item"><Link className="navigation__link-reg navigation__link-reg_active" to="/movies">Фильмы</Link></li>
-                    <li className="navigation__item"><Link className="navigation__link-reg" to="/saved-movies">Сохранённые фильмы</Link></li>
-                    <li className="navigation__item"><Link className="navigation__button-reg" to="/profile">Аккаунт
+                    <li className="navigation__item-min"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__link-reg_active" : "navigation__link-reg"}`} to="/">Главная</NavLink></li>
+                    <li className="navigation__item"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__link-reg_active" : "navigation__link-reg"}`} to="/movies">Фильмы</NavLink></li>
+                    <li className="navigation__item"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__link-reg_active" : "navigation__link-reg"}`} to="/saved-movies">Сохранённые фильмы</NavLink></li>
+                    <li className="navigation__item"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__button-reg_active" : "navigation__button-reg"}`} to="/profile">Аккаунт
                         <div className={iconСlassName} />
-                    </Link></li>
+                    </NavLink></li>
                 </ul>
             </nav>
         );

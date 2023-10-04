@@ -61,7 +61,7 @@ function Header({ lightСlassName }) {
                     src={headerLogo}
                     alt="сервис Movies" />
             </Link>
-            <Navigation showMenu={showMenu} showUnloginMenu={showUnloginMenu} iconСlassName={` ${lightСlassName ? "navigation__account-icon_light" : "navigation__account-icon"}`} />
+            <Navigation showMenu={showMenu} showUnloginMenu={showUnloginMenu} isBurgerMenu={showHamburgerMenuButton} iconСlassName={` ${lightСlassName ? "navigation__account-icon_light" : "navigation__account-icon"}`} />
             <HamburgerButton isShown={showHamburgerMenuButton} onClick={handleHamburgerMenuClick} wasClicked={wasClicked}/>
         </header>
     )
