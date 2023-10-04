@@ -10,7 +10,11 @@ function MoviesCard() {
             <img className="card__image" src={filmOne} alt="«Роллинг Стоунз» в изгнании" />
             <button className="card__button">Сохранить</button>
 
+
             {/* <button className="card__button card__button_deletes"></button> */}
+            {/* <button className="card__button card__button_saved"></button> */}
+
+
             {/* <button className="card__button_saved"/> */}
             {/* <button className="card__button_delete"/> */}
         </article >

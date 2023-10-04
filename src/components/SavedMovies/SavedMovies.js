@@ -8,7 +8,7 @@ function SavedMovies() {
         <section className="saved-movies">
             <Header />
             <SearchForm />
-            <MoviesCardList paddingClassName={"movies__padding-max"} buttonClassName/>
+            <MoviesCardList buttonClassName={"card__button_deletes"} paddingClassName={"movies__padding-max"}/>
             <Footer />
         </section >
     )

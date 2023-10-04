@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard.js';
 
 function MoviesCardList({ paddingClassName }) {
     return (
-        <section className="movies page__padding">
+        <main className="movies page__padding">
             <div className={` ${paddingClassName ? paddingClassName : ""}  movies__conteiner`}>
 
                 {/* Временное решение для верстки, потом удалить и переписать */}
@@ -21,7 +21,7 @@ function MoviesCardList({ paddingClassName }) {
                 <MoviesCard />
                 {/* <Preloader /> */}
             </div>
-        </section >
+        </main >
     )
 }
 

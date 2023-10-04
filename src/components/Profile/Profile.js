@@ -25,7 +25,7 @@ function Profile({ handleSignOut, onSubmit}) {
     }
 
     return (
-        <section className="profile">
+        <main className="profile">
             <Header />
             <form className="profile__form" name="profile" noValidate="" onSubmit={onSubmit} isSubmitEnable={isValid}>
                 <h2 className="profile__title">Привет, Виталий!</h2>
@@ -71,7 +71,7 @@ function Profile({ handleSignOut, onSubmit}) {
 
                 <button className="profile__button-exit" type="button" onClick={signOut}> Выйти из аккаунта</button>
             </form>
-        </section>
+        </main>
 
     )
 }
