@@ -50,6 +50,7 @@
     font-size: 12px;
     cursor: pointer;
     transition-duration: 0.4s;
+    vertical-align: bottom;
 }
 
 .card__button:hover {

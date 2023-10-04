@@ -1,11 +1,11 @@
 function MoviesCard({ id, isLikeCard, nameRU, durationHuman, image, handleSaveCard, handleDeleteCard }) {
 
-    function savedCard(e) {
+    function saveCard(e) {
         e.preventDefault();
         handleSaveCard(id);
     }
 
-    function deletedCard(e) {
+    function deleteCard(e) {
         e.preventDefault();
         handleDeleteCard(id);
     }
@@ -18,16 +18,16 @@ function MoviesCard({ id, isLikeCard, nameRU, durationHuman, image, handleSaveCa
 
     if (!isLikeCard && handleSaveCard !== undefined) {  //page Movies card not liked
         buttonClass = ""
-        buttonHandler = savedCard
+        buttonHandler = saveCard
         buttonText = "Сохранить"
     } else if (isLikeCard && handleSaveCard !== undefined) { //page Movies card liked
         buttonClass = "card__button_saved"
-        buttonHandler = deletedCard
-        buttonText = " "
+        buttonHandler = deleteCard
+        buttonText = ""
     } else { //page Saved Movies
         buttonClass = "card__button_delete"
-        buttonHandler = deletedCard
-        buttonText = " "
+        buttonHandler = deleteCard
+        buttonText = ""
     }
 
     return (
@@ -37,7 +37,7 @@ function MoviesCard({ id, isLikeCard, nameRU, durationHuman, image, handleSaveCa
                 <p className="card__duration">{durationHuman}</p>
             </div>
             <img className="card__image" src={image.fullUrl} alt={nameRU} />
-            <button className={`${buttonClass} card__button`} type="button"
+            <button className={`card__button ${buttonClass}`} type="button"
                 onClick={buttonHandler}>{buttonText}</button>
         </article >
     )
