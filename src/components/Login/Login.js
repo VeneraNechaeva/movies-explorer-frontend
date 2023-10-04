@@ -33,7 +33,7 @@ function Login({ handleLogin }) {
             <div className="form__field-conteiner-log">
 
                 <div className="form__field-content">
-                    <label className="form__label" for="email">E-mail</label>
+                    <label className="form__label" htmlFor="email">E-mail</label>
                     <input
                         id="email"
                         className={`form__field  ${errors?.email ? "form__field_error" : ""}`}
@@ -50,7 +50,7 @@ function Login({ handleLogin }) {
                 </div>
 
                 <div className="form__field-content">
-                    <label className="form__label" for="password">Пароль</label>
+                    <label className="form__label" htmlFor="password">Пароль</label>
                     <input
                         id="password"
                         className={`form__field  ${errors?.password ? "form__field_error" : ""}`}

@@ -54,7 +54,6 @@
 
 .card__button:hover {
     transition: linear;
-    transition-duration: 0.4s;
     opacity: 0.8;
 }
 

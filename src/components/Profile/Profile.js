@@ -32,7 +32,7 @@ function Profile({ handleSignOut, onSubmit}) {
 
                 <div className="profile__field-conteiner">
                     <div className="profile__field-content">
-                        <label className="profile__label" for="name">Имя</label>
+                        <label className="profile__label" htmlFor="name">Имя</label>
                         <input
                             id="name"
                             className="profile__field"
@@ -49,7 +49,7 @@ function Profile({ handleSignOut, onSubmit}) {
                     </div>
 
                     <div className="profile__field-content">
-                        <label className="profile__label" for="email">E-mail</label>
+                        <label className="profile__label" htmlFor="email">E-mail</label>
                         <input
                             id="email"
                             className="profile__field"

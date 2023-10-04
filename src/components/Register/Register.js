@@ -32,7 +32,7 @@ function Register() {
             <div className="form__field-conteiner">
 
                 <div className="form__field-content">
-                    <label className="form__label" for="name">Имя</label>
+                    <label className="form__label" htmlFor="name">Имя</label>
                     <input
                         id="name"
                         className={`form__field  ${errors?.name ? "form__field_error" : ""}`}
@@ -50,7 +50,7 @@ function Register() {
 
 
                 <div className="form__field-content">
-                    <label className="form__label" for="email">E-mail</label>
+                    <label className="form__label" htmlFor="email">E-mail</label>
                     <input
                         id="email"
                         className={`form__field form__field-light  ${errors?.email ? "form__field_error" : ""}`}
@@ -67,7 +67,7 @@ function Register() {
                 </div>
 
                 <div className="form__field-content">
-                    <label className="form__label" for="password">Пароль</label>
+                    <label className="form__label" htmlFor="password">Пароль</label>
                     <input
                         id="password"
                         className={`form__field  ${errors?.password ? "form__field_error" : ""}`}

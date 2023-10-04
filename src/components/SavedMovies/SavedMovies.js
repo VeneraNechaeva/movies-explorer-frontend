@@ -3,12 +3,12 @@ import Footer from '../Footer/Footer.js';
 import SearchForm from '../SearchForm/SearchForm.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 
-function SavedMovies() {
+function SavedMovies({ cards, handleDeleteCard }) {
     return (
         <section className="saved-movies">
             <Header />
             <SearchForm />
-            <MoviesCardList buttonClassName={"card__button_deletes"} paddingClassName={"movies__padding-max"}/>
+            <MoviesCardList cards={cards} paddingClassName={"movies__padding-max"} handleDeleteCard={handleDeleteCard} />
             <Footer />
         </section >
     )

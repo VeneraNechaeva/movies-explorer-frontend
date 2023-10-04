@@ -31,9 +31,7 @@ function Header({ lightСlassName }) {
     useEffect(() => {
         function handleResize() {
 
-            console.log('currentUser', currentUser, 'width', window.innerWidth);
             if (currentUser.email && window.innerWidth <= 800) {
-                console.log('wasClicked', wasClicked)
                 setShowMenu(() => wasClicked)
                 // setWasClicked(() => false);
                 setShowUnloginMenu(() => false)
@@ -42,7 +40,6 @@ function Header({ lightСlassName }) {
                 setShowHamburgerMenuButton(() => false);
                 setShowMenu(() => true)
                 setShowUnloginMenu(() => true)
-                console.log('setShowMenu', true)
             } else {
                 setShowMenu(() => false)
                 setShowUnloginMenu(() => true)

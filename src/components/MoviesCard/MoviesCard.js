@@ -1,22 +1,44 @@
-import filmOne from '../../images/Film.jpg';
+function MoviesCard({ id, isLikeCard, nameRU, durationHuman, image, handleSaveCard, handleDeleteCard }) {
 
-function MoviesCard() {
+    function savedCard(e) {
+        e.preventDefault();
+        handleSaveCard(id);
+    }
+
+    function deletedCard(e) {
+        e.preventDefault();
+        handleDeleteCard(id);
+    }
+
+
+    // Переменные для отображения кнопки
+    let buttonClass
+    let buttonHandler
+    let buttonText
+
+    if (!isLikeCard && handleSaveCard !== undefined) {  //page Movies card not liked
+        buttonClass = ""
+        buttonHandler = savedCard
+        buttonText = "Сохранить"
+    } else if (isLikeCard && handleSaveCard !== undefined) { //page Movies card liked
+        buttonClass = "card__button_saved"
+        buttonHandler = deletedCard
+        buttonText = " "
+    } else { //page Saved Movies
+        buttonClass = "card__button_delete"
+        buttonHandler = deletedCard
+        buttonText = " "
+    }
+
     return (
         <article className="card">
             <div className="card__text-container">
-                <h2 className="card__title">В погоне за Бенкси</h2>
-                <p className="card__duration">0ч 42м</p>
+                <h2 className="card__title">{nameRU}</h2>
+                <p className="card__duration">{durationHuman}</p>
             </div>
-            <img className="card__image" src={filmOne} alt="«Роллинг Стоунз» в изгнании" />
-            {/* <button className="card__button">Сохранить</button> */}
-
-
-            <button className="card__button card__button_delete"></button>
-            {/* <button className="card__button card__button_saved"></button> */}
-
-
-            {/* <button className="card__button_saved"/> */}
-            {/* <button className="card__button_delete"/> */}
+            <img className="card__image" src={image.fullUrl} alt={nameRU} />
+            <button className={`${buttonClass} card__button`} type="button"
+                onClick={buttonHandler}>{buttonText}</button>
         </article >
     )
 }
