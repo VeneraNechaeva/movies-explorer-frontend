@@ -44,6 +44,7 @@ function Login({ handleLogin }) {
                         required
                         value={values.email ?? ''}
                         onChange={handleChange}
+                        placeholder="E-mail"
                     />
                     <span className={`form__error email-error  ${errors?.email ? "form__error_visible-user" : ""}`}>
                     {errors?.email}</span>
@@ -61,6 +62,7 @@ function Login({ handleLogin }) {
                         required
                         value={values.password ?? ''}
                         onChange={handleChange}
+                        placeholder="Пароль"
                     />
                     <span className={`form__error password-error  ${errors?.password ? "form__error_visible-user" : ""}`}>
                     {errors?.password}</span>
