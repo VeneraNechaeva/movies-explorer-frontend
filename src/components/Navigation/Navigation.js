@@ -12,7 +12,7 @@ function Navigation({ iconСlassName, showMenu, showUnloginMenu, isBurgerMenu })
                     <li className="navigation__item-min"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__link-reg_active" : "navigation__link-reg"}`} to="/">Главная</NavLink></li>
                     <li className="navigation__item"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__link-reg_active" : "navigation__link-reg"}`} to="/movies">Фильмы</NavLink></li>
                     <li className="navigation__item"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__link-reg_active" : "navigation__link-reg"}`} to="/saved-movies">Сохранённые фильмы</NavLink></li>
-                    <li className="navigation__item"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__button-reg_active" : "navigation__button-reg"}`} to="/profile">Аккаунт
+                    <li className="navigation__item-button"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__button-reg_active" : "navigation__button-reg"}`} to="/profile">Аккаунт
                         <div className={iconСlassName} />
                     </NavLink></li>
                 </ul>
