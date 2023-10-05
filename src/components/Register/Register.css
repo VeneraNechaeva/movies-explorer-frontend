@@ -2,6 +2,15 @@
     padding-bottom: 61px;
 }
 
+.form__field:-webkit-autofill {
+    -webkit-text-fill-color: #FFFFFF;
+    -webkit-box-shadow: 0 0 0 30px rgba(32, 32, 32, 1) inset !important;
+}
+
+.form__field:-webkit-autofill::first-line {
+    font-size: 14px;
+}
+
 @media screen and (max-width: 450px) {
     .form__field-conteiner {
         width: 100%;

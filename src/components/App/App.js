@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 // Импортируем компоненты приложения, которые используем в Роутах
 import Main from '../Main/Main.js';

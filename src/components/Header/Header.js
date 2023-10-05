@@ -22,7 +22,6 @@ function Header({ lightСlassName }) {
 
     // Метод, который открывает гамбургер-меню
     function handleHamburgerMenuClick() {
-        console.log('handleHamburgerMenuClick wasClicked', wasClicked)
         setShowMenu(() => !showMenu);
         setWasClicked(() => !wasClicked);
     }
@@ -33,7 +32,6 @@ function Header({ lightСlassName }) {
 
             if (currentUser.email && window.innerWidth <= 800) {
                 setShowMenu(() => wasClicked)
-                // setWasClicked(() => false);
                 setShowUnloginMenu(() => false)
                 setShowHamburgerMenuButton(() => true);
             } else if (currentUser.email && window.innerWidth > 800) {
