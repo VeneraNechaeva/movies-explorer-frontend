@@ -46,6 +46,15 @@
     outline: 1.5px solid #4285F4;
 }
 
+.profile__field:-webkit-autofill {
+    -webkit-text-fill-color: #FFFFFF;
+    -webkit-box-shadow: 0 0 0 30px rgba(32, 32, 32, 1) inset !important;
+}
+
+.profile__field:-webkit-autofill::first-line {
+    font-size: 11px;
+}
+
 .profile__button {
     margin-top: 203px;
     margin-bottom: 16px;
