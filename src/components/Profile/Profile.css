@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 74px;
+    padding-bottom: 70px;
 }
 
 .profile__title {
@@ -105,6 +106,7 @@
 @media screen and (max-width: 800px) {
     .profile__form {
         padding-top: 237px;
+        padding-bottom: 269px;
     }
 
     .profile__title {
@@ -119,6 +121,7 @@
 @media screen and (max-width: 450px) {
     .profile__form {
         padding-top: 70px;
+        padding-bottom: 40px;
     }
 
     .profile__field-content {

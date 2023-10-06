@@ -3,13 +3,13 @@ import MoviesCard from '../MoviesCard/MoviesCard.js';
 
 function MoviesCardList({ paddingClassName, cards, handleSaveCard, handleDeleteCard }) {
     return (
-        <main className="movies page__padding">
+        <section className="movies page__padding">
             <div className={` ${paddingClassName ? paddingClassName : ""}  movies__conteiner`}>
 
                 {cards.map((card) => <MoviesCard {...card} key={card.id} handleSaveCard={handleSaveCard} handleDeleteCard={handleDeleteCard}/>)}
                 {/* <Preloader /> */}
             </div>
-        </main >
+        </section >
     )
 }
 

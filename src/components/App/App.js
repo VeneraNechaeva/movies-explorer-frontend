@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import Main from '../Main/Main.js';
 import Register from '../Register/Register.js';
 import Login from '../Login/Login.js';
-import Movies from '../Movies/Movies.js';
+import Movies from '../Main/Movies.js';
 import SavedMovies from '../SavedMovies/SavedMovies.js';
 import Profile from '../Profile/Profile.js';
 import NotFound from '../NotFound/NotFound.js';
@@ -83,7 +83,7 @@ function App() {
         <div className="page__container">
 
           <Routes>
-
+          
             <Route path="/" element={<Main />} />
             <Route path="/signup" element={<Register />} />
             <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
