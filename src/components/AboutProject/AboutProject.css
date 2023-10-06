@@ -1,13 +1,13 @@
-.about-roject {
+.about-project {
     padding-top: 110px;
     padding-bottom: 110px;
 }
 
-.about-roject__paragraph {
+.about-project__paragraph {
     border-bottom: 1px solid #DADADA;
 }
 
-.about-roject__paragraph-text {
+.about-project__paragraph-text {
     margin: 0;
     margin-bottom: 23px;
     font-weight: 400;
@@ -16,22 +16,22 @@
     line-height: 26.63px;
 }
 
-.about-roject__container {
+.about-project__container {
     padding-top: 70px;
     display: flex;
 }
 
-.about-roject__text-container {
+.about-project__text-container {
     padding-bottom: 110px;
     display: flex;
     flex-direction: column;
 }
 
-.about-roject__text-container:last-of-type {
+.about-project__text-container:last-of-type {
     padding-left: 52px;
 }
 
-.about-roject__text {
+.about-project__text {
     margin: 0;
     font-weight: 400;
     font-size: 20px;
@@ -39,7 +39,7 @@
     line-height: 24.2px;
 }
 
-.about-roject__subtitle {
+.about-project__subtitle {
     margin: 0;
     margin-top: 26px;
     font-weight: 400;
@@ -47,12 +47,12 @@
     line-height: 20px;
 }
 
-.about-roject__timeline {
+.about-project__timeline {
     display: grid;
     grid-template-columns: 20% 80%;
 }
 
-.about-roject__timeline-elem_min {
+.about-project__timeline-elem-min {
     background: #3DDC84;
     height: 36px;
     display: flex;
@@ -60,7 +60,7 @@
     justify-content: center;
 }
 
-.about-roject__timeline-elem_max {
+.about-project__timeline-elem-max {
     background: #303030;
     height: 36px;
     display: flex;
@@ -68,20 +68,20 @@
     justify-content: center;
 }
 
-.about-roject__timeline-time_min {
+.about-project__timeline-time-min {
     margin: 0;
     color: #000000;
     font-weight: 400;
     font-size: 14px;
 }
 
-.about-roject__timeline-time_max {
+.about-project__timeline-time-max {
     margin: 0;
     font-weight: 400;
     font-size: 14px;
 }
 
-.about-roject__timeline-stage {
+.about-project__timeline-stage {
     margin: 0;
     margin-top: 14px;
     color: #8B8B8B;
@@ -91,90 +91,90 @@
 }
 
 @media screen and (max-width: 800px) {
-    .about-roject {
+    .about-project {
         padding-top: 90px;
         padding-bottom: 90px;
     }
 
-    .about-roject__subtitle {
+    .about-project__subtitle {
         margin: 0;
         margin-top: 22px;
         font-size: 12px;
         line-height: 18px;
     }
 
-    .about-roject__text-container {
+    .about-project__text-container {
         padding-bottom: 93px;
     }
 
-    .about-roject__text-container:last-of-type {
+    .about-project__text-container:last-of-type {
         padding-left: 38px;
     }
 
-    .about-roject__timeline {
+    .about-project__timeline {
         grid-template-columns: 21% 79%;
     }
 }
 
 @media screen and (max-width: 500px) {
-    .about-roject {
+    .about-project {
         padding-top: 70px;
         padding-bottom: 69px;
     }
 
-    .about-roject__paragraph-text {
+    .about-project__paragraph-text {
         font-size: 18px;
         letter-spacing: -1px;
     }
 
-    .about-roject__container {
+    .about-project__container {
         padding-top: 63px;
         display: flex;
         flex-direction: column;
     }
 
-    .about-roject__text-container {
+    .about-project__text-container {
         padding-bottom: 56px;
     }
 
-    .about-roject__text-container:last-of-type {
+    .about-project__text-container:last-of-type {
         padding-bottom: 60px;
         padding-left: 0;
     }
 
-    .about-roject__text {
+    .about-project__text {
         font-size: 18px;
         line-height: 21.78px;
     }
 
-    .about-roject__subtitle {
+    .about-project__subtitle {
         font-size: 11px;
         margin-top: 16px;
         font-size: 11px;
         line-height: 16px;
     }
 
-    .about-roject__timeline {
+    .about-project__timeline {
         grid-template-columns: 35% 65%;
     }
 
-    .about-roject__timeline-elem_min {
+    .about-project__timeline-elem-min {
         height: 35px;
     }
 
-    .about-roject__timeline-elem_max {
+    .about-project__timeline-elem-max {
         height: 35px;
     }
 
-    .about-roject__timeline-time_min {
+    .about-project__timeline-time-min {
         font-size: 11px;
     }
 
-    .about-roject__timeline-time_max {
+    .about-project__timeline-time-max {
         font-size: 11px;
     }
 
-    .about-roject__timeline-stage {
+    .about-project__timeline-stage {
         font-size: 11px;
         margin-top: 10px;
     }

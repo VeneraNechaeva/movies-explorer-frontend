@@ -56,8 +56,9 @@ function Header({ lightСlassName }) {
                     src={headerLogo}
                     alt="сервис Movies" />
             </Link>
-            <Navigation showMenu={showMenu} showUnloginMenu={showUnloginMenu} isBurgerMenu={showHamburgerMenuButton} iconСlassName={` ${lightСlassName && window.innerWidth > 800 ? "navigation__account-icon_light" : "navigation__account-icon"}`} />
-            <HamburgerButton isShown={showHamburgerMenuButton} onClick={handleHamburgerMenuClick} wasClicked={wasClicked}/>
+            <Navigation showMenu={showMenu} showUnloginMenu={showUnloginMenu} isBurgerMenu={showHamburgerMenuButton}
+                iconСlassName={` ${lightСlassName && window.innerWidth > 800 ? "navigation__account-icon navigation__account-icon_light" : "navigation__account-icon"}`} />
+            <HamburgerButton isShown={showHamburgerMenuButton} onClick={handleHamburgerMenuClick} wasClicked={wasClicked} />
         </header>
     )
 }
