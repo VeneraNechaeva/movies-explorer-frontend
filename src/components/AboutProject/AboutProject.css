@@ -116,7 +116,7 @@
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
     .about-roject {
         padding-top: 70px;
         padding-bottom: 69px;
@@ -125,10 +125,6 @@
     .about-roject__paragraph-text {
         font-size: 18px;
         letter-spacing: -1px;
-    }
-
-    .about-roject__container {
-        padding-top: 60px;
     }
 
     .about-roject__container {
