@@ -6,20 +6,20 @@ function Portfolio() {
                 <li className="portfolio__link-container">
                     <a className="portfolio__link-text"
                         href="https://github.com/VeneraNechaeva/how-to-learn"
-                        target="_blank" rel="noreferrer">Статичный сайт</a>
-                    <div className="portfolio__icon-link"></div>
+                        target="_blank" rel="noreferrer">
+                        <div className="portfolio__icon-link"></div>Статичный сайт</a>
                 </li>
                 <li className="portfolio__link-container">
                     <a className="portfolio__link-text"
                         href="https://github.com/VeneraNechaeva/russian-travel"
-                        target="_blank" rel="noreferrer">Адаптивный сайт</a>
-                    <div className="portfolio__icon-link"></div>
+                        target="_blank" rel="noreferrer">
+                        <div className="portfolio__icon-link"></div>Адаптивный сайт</a>
                 </li>
                 <li className="portfolio__link-container">
                     <a className="portfolio__link-text"
                         href="https://github.com/VeneraNechaeva/react-mesto-api-full-gha"
-                        target="_blank" rel="noreferrer">Одностраничное приложение</a>
-                    <div className="portfolio__icon-link"></div>
+                        target="_blank" rel="noreferrer">
+                        <div className="portfolio__icon-link"></div>Одностраничное приложение</a>
                 </li>
             </ul>
         </section>

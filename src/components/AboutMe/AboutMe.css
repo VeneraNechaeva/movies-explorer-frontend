@@ -54,6 +54,13 @@
     text-decoration: none;
     font-weight: 500;
     font-size: 14px;
+    transition-duration: 0.4s;
+}
+
+.about-me__link:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.7;
 }
 
 .about-me__avatar {
