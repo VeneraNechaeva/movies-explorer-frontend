@@ -14,8 +14,8 @@ function SearchForm({ onSubmit, isSubmitEnable }) {
                 // value={values.movie ?? ''}
                 // onChange={handleChange}
                 />
-                <button className={`search__button ${isSubmitEnable ? "" : "form__button_disabled"}`}
-                 type="submit" disabled={isSubmitEnable ? "" : "disabled"}>Поиск </button>
+                <button 
+                className="search__button" type="submit">Поиск </button>
             </div>
 
             <FilterCheckbox />
