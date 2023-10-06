@@ -54,7 +54,7 @@ function Register() {
                     <label className="form__label" htmlFor="email">E-mail</label>
                     <input
                         id="email"
-                        className={`form__field form__field-light  ${errors?.email ? "form__field_error" : ""}`}
+                        className={`form__field ${errors?.email ? "form__field_error" : ""}`}
                         type="email"
                         name="email"
                         minLength={2}

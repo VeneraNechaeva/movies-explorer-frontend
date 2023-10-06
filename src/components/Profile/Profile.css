@@ -41,6 +41,10 @@
     width: 80%;
 }
 
+.profile__field:focus {
+    outline: 1.5px solid #4285F4;
+}
+
 .profile__button {
     margin-top: 203px;
     margin-bottom: 16px;
