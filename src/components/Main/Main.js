@@ -8,8 +8,9 @@ import Footer from '../Footer/Footer.js';
 
 function Main() {
     return (
-        <section className="presentation">
-            <Header lightСlassName="header_light"/>
+        
+        <div className="presentation">
+            <Header lightСlassName="header header_light"/>
             <main className="presentation__content">
                 <Promo />
                 <AboutProject />
@@ -18,7 +19,7 @@ function Main() {
                 <Portfolio />
             </main>
             <Footer />
-        </section >
+        </div >
     )
 }
 

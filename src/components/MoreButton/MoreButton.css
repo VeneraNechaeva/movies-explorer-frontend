@@ -16,7 +16,7 @@
     transition-duration: 0.4s;
 }
 
-.movies__button:hover {
+.button__movies:hover {
     transition: linear;
     transition-duration: 0.4s;
     opacity: 0.8;

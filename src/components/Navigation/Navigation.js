@@ -7,7 +7,7 @@ function Navigation({ iconСlassName, showMenu, showUnloginMenu, isBurgerMenu })
 
     if (showMenu) {
         return (
-            <nav className="navigation__registered">
+            <nav className="navigation navigation_registered">
                 <ul className="navigation__list-reg">
                     <li className="navigation__item-min"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__link-reg_active" : "navigation__link-reg"}`} to="/">Главная</NavLink></li>
                     <li className="navigation__item"><NavLink className={({isActive}) => `${isActive && isBurgerMenu ? "navigation__link-reg_active" : "navigation__link-reg"}`} to="/movies">Фильмы</NavLink></li>
@@ -20,7 +20,7 @@ function Navigation({ iconСlassName, showMenu, showUnloginMenu, isBurgerMenu })
         );
     } else if (showUnloginMenu) {
         return (
-            <nav className="navigation__unregistered">
+            <nav className="navigation navigation_unregistered">
                 <ul className="navigation__list">
                     <li className="navigation__item-unregistered"><Link className="navigation__link" to="/signup">Регистрация</Link></li>
                     <li className="navigation__item-unregistered"><Link className="navigation__button" to="/signin">Войти</Link></li>

@@ -25,6 +25,10 @@
     width: 50%;
 }
 
+.search__field:focus {
+    outline: 1.5px solid #4285F4;
+}
+
 .search__button {
     width: 100px;
     height: 52px;

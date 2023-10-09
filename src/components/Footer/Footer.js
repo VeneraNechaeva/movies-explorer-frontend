@@ -10,9 +10,11 @@ function Footer() {
             <h2 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
             <div className="footer__copyright">
                 <p className="footer__date">© {date}</p>
-                <div className="footer__text-container">
-                    <p className="footer__text-elem">Яндекс.Практикум</p>
-                    <p className="footer__text-elem">Github</p>
+                <div className="footer__link-container">
+                    <a className="footer__link-elem" href="https://practicum.yandex.ru/"
+                        target="_blank" rel="noreferrer">Яндекс.Практикум</a>
+                    <a className="footer__link-elem" href="https://github.com/VeneraNechaeva"
+                        target="_blank" rel="noreferrer">Github</a>
                 </div>
             </div>
         </section>

@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 74px;
+    padding-bottom: 70px;
 }
 
 .profile__title {
@@ -39,6 +40,19 @@
     color: #FFFFFF;
     text-align: right;
     width: 80%;
+}
+
+.profile__field:focus {
+    outline: 1.5px solid #4285F4;
+}
+
+.profile__field:-webkit-autofill {
+    -webkit-text-fill-color: #FFFFFF;
+    -webkit-box-shadow: 0 0 0 30px rgba(32, 32, 32, 1) inset !important;
+}
+
+.profile__field:-webkit-autofill::first-line {
+    font-size: 11px;
 }
 
 .profile__button {
@@ -101,6 +115,7 @@
 @media screen and (max-width: 800px) {
     .profile__form {
         padding-top: 237px;
+        padding-bottom: 269px;
     }
 
     .profile__title {
@@ -115,6 +130,7 @@
 @media screen and (max-width: 450px) {
     .profile__form {
         padding-top: 70px;
+        padding-bottom: 40px;
     }
 
     .profile__field-content {

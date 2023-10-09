@@ -130,19 +130,12 @@
 }
 
 .navigation__account-icon_light {
-    width: 30px;
-    height: 30px;
-    margin-left: 13px;
-    border-radius: 6px;
     background-color: #0F4157;
-    background-image: url(../../images/Vector-icon-account.svg);
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 800px) {
 
-    .navigation__registered {
+    .navigation_registered {
         position: absolute;
         right: 0;
         top: 0;
@@ -244,7 +237,7 @@
 }
 
 @media screen and (max-width: 600px) {
-    .navigation__registered {
+    .navigation_registered {
         min-width: 0;
         width: 100%;
     }
