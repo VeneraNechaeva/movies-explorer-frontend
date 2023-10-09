@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import * as auth from '../auth.js';
 import UserForm from '../UserForm/UserForm.js';
 import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
-function Register() {
+// Компонент для регистрации
+function Register({ onSuccessRegister, onFailRegister }) {
 
     // Запуск валидации
     const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
@@ -20,8 +22,22 @@ function Register() {
     // Обработчик регистрации
     const onRegister = (e) => {
         e.preventDefault();
-        resetForm();
-        navigate('/signin', { replace: true });
+
+        auth.register(values.name, values.email, values.password)
+            .then((res) => {
+                try {
+                    onSuccessRegister();
+                } catch (err) {
+                    onFailRegister({ body: { error: err } })
+                }
+            })
+            .catch(err => {
+                err.then(errMsg => {
+                    onFailRegister(errMsg)
+                    console.log(errMsg)
+                }
+                )
+            });
     }
 
     return (
@@ -46,7 +62,7 @@ function Register() {
                         placeholder="Имя"
                     />
                     <span className={`form__error email-error  ${errors?.name ? "form__error_visible-user" : ""}`}>
-                    {errors?.email}</span>
+                        {errors?.email}</span>
                 </div>
 
 
@@ -65,7 +81,7 @@ function Register() {
                         placeholder="E-mail"
                     />
                     <span className={`form__error email-error  ${errors?.email ? "form__error_visible-user" : ""}`}>
-                    {errors?.email}</span>
+                        {errors?.email}</span>
                 </div>
 
                 <div className="form__field-content">
@@ -83,7 +99,7 @@ function Register() {
                         placeholder="Пароль"
                     />
                     <span className={`form__error password-error  ${errors?.password ? "form__error_visible-user" : ""}`}>
-                    {errors?.password}</span>
+                        {errors?.password}</span>
                 </div>
             </div>
         </UserForm>
