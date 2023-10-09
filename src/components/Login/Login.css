@@ -1,0 +1,9 @@
+.form__field-conteiner-log {
+    padding-bottom: 130px;
+}
+
+@media screen and (max-width: 450px) {
+    .form__field-conteiner-log {
+        width: 100%;
+    }
+}

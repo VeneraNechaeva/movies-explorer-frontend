@@ -1,0 +1,55 @@
+.header__button-menu {
+    display: none;
+    background: transparent;
+    background-image: url(../../images/Vector-icon-nav.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    z-index: 3;
+}
+
+.header__button-menu:hover {
+    transition: linear;
+    transition-duration: 0.4s;
+    opacity: 0.7;
+}
+
+.header__button-menu_close {
+    background-image: url(../../images/Vector-icon-close.svg);
+    /* background-position: left; */
+    background-repeat: no-repeat;
+    /* border: 1px solid red; */
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    top: 17px;
+    right: 17px;
+}
+
+@media screen and (max-width: 800px) {
+    .header__button-menu {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .header__button-menu {
+        padding: 0;
+        width: 40px;
+        height: 44px;
+        background-size: 35px 40px;
+    }
+
+    .header__button-menu_close {
+        width: 32px;
+        height: 32px;
+        background-size: cover;
+        top: 13px;
+        right: 13px;
+    }
+}

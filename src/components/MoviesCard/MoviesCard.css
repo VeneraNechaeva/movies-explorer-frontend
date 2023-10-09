@@ -1,0 +1,112 @@
+.card {
+    max-width: 360px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    background-color: #222222;
+    border-radius: 6px;
+    box-shadow: 0 4px 30px 0 rgba(0, 0, 0, .08);
+    text-align: center;
+}
+
+.card__text-container {
+    padding-right: 18px;
+    padding-left: 18px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card__title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+}
+
+.card__duration {
+    margin: 0;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #8B8B8B;
+}
+
+.card__image {
+    margin-top: 18px;
+    margin-bottom: 15px;
+    max-width: 100%;
+    width: 360px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card__button {
+    width: 100px;
+    height: 29px;
+    border-radius: 30px;
+    border: none;
+    background-color: #313131;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 12px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    vertical-align: bottom;
+}
+
+.card__button:hover {
+    transition: linear;
+    opacity: 0.8;
+}
+
+.card__button_saved {
+    background-color: #EE3465;
+    background-image: url(../../images/Vector-icon-button-saved.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.card__button_delete {
+    background-image: url(../../images/Vector-icon-delete.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+@media screen and (max-width: 800px) {
+    .card {
+        max-width: 342px;
+    }
+
+    .card__image {
+        width: 342px;
+        height: 190px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .card {
+        max-width: 300px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .card__text-container {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .card__title {
+        font-size: 12px;
+    }
+
+    .card__duration {
+        font-size: 10px;
+    }
+
+    .card__image {
+        width: 300px;
+        height: 168px;
+        margin-top: 14px;
+        margin-bottom: 10px;
+    }
+}
