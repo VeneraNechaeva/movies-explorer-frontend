@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header.js';
 import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
 function Profile({ handleSignOut, onUpdateUser }) {
+
+    // Стейт с текстом ошибки
+    const [textErrorMessage, setTextErrorMessage] = useState();
 
     // Подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
@@ -41,6 +44,27 @@ function Profile({ handleSignOut, onUpdateUser }) {
         handleSignOut();
         navigate('/', { replace: true });
     }
+
+    // // Обработчик регистрации
+    // const onRegister = (e) => {
+    //     e.preventDefault();
+
+    //     api.register(values.name, values.email, values.password)
+    //         .then((res) => {
+    //             try {
+    //                 onSuccessRegister(values.email, values.password);
+    //             } catch (err) {
+    //                 onFailRegister({ body: { error: err } })
+    //             }
+    //         })
+    //         .catch(err => {
+    //             err.msg.then(errMsg => {
+    //                 console.log('errMsg', errMsg)
+    //                 onFailRegister(errMsg, setTextErrorMessage)
+    //             }
+    //             )
+    //         });
+    // }
 
     return (
         <main className="profile">

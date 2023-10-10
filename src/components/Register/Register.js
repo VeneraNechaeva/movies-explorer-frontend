@@ -4,7 +4,7 @@ import UserForm from '../UserForm/UserForm.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
 // Компонент для регистрации
-function Register({ onSuccessRegister, onFailRegister }) {
+function Register({ onRegister, onFailRegister }) {
     // Стейт с текстом ошибки
     const [textErrorMessage, setTextErrorMessage] = useState();
     // Запуск валидации
@@ -16,17 +16,10 @@ function Register({ onSuccessRegister, onFailRegister }) {
     }, []);
 
     // Обработчик регистрации
-    const onRegister = (e) => {
+    const submitRegister = (e) => {
         e.preventDefault();
 
-        api.register(values.name, values.email, values.password)
-            .then((res) => {
-                try {
-                    onSuccessRegister(values.email, values.password);
-                } catch (err) {
-                    onFailRegister({ body: { error: err } })
-                }
-            })
+        onRegister(values.name, values.email, values.password)
             .catch(err => {
                 err.msg.then(errMsg => {
                     console.log('errMsg', errMsg)
@@ -39,7 +32,7 @@ function Register({ onSuccessRegister, onFailRegister }) {
     return (
         <UserForm name="register" title="Добро пожаловать!" buttonText="Зарегистрироваться"
             text="Уже зарегистрированы?" textLink="Войти" redirect="/signin"
-            onSubmit={onRegister} isSubmitEnable={isValid}
+            onSubmit={submitRegister} isSubmitEnable={isValid}
         >
             <div className="form__field-conteiner">
 

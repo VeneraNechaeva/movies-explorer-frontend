@@ -3,7 +3,7 @@ import { api } from '../../utils/MainApi';
 import UserForm from '../UserForm/UserForm.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
-function Login({ onSuccessLogin, onFailLogin }) {
+function Login({ onLogin, onFailLogin }) {
     // Стейт с текстом ошибки
     const [textErrorMessage, setTextErrorMessage] = useState();
     // Запуск валидации
@@ -15,29 +15,20 @@ function Login({ onSuccessLogin, onFailLogin }) {
     }, []);
 
     // Обработчик авторизации
-    const onLogin = (e) => {
+    const submitLogin = (e) => {
         e.preventDefault();
-
-        api.login(values.email, values.password)
-            .then((res) => {
-                try {
-                    onSuccessLogin(values.email, values.password);
-                } catch (err) {
-                    onFailLogin({ body: { error: err } })
-                }
-            })
+        onLogin(values.email, values.password)
             .catch(err => {
                 err.msg.then(errMsg => {
                     onFailLogin(errMsg, setTextErrorMessage)
-                }
-                )
+                })
             });
     }
 
     return (
         <UserForm name="login" title="Рады видеть!" buttonText="Войти"
             text="Ещё не зарегистрированы?" textLink="Регистрация" redirect="/signup"
-            onSubmit={onLogin} isSubmitEnable={isValid}
+            onSubmit={submitLogin} isSubmitEnable={isValid}
         >
             <div className="form__field-conteiner-log">
 
