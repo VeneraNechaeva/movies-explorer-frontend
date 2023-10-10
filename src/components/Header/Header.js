@@ -46,7 +46,7 @@ function Header({ lightСlassName }) {
         window.addEventListener("resize", handleResize);
         handleResize();
         return () => window.removeEventListener("resize", handleResize);
-    }, [wasClicked]);
+    }, [wasClicked, currentUser]);
 
     return (
         <header className={` ${lightСlassName ? lightСlassName : "header"}  page__padding-min`}>

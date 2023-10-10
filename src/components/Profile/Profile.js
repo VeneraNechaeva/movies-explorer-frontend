@@ -2,33 +2,51 @@ import React, { useEffect } from 'react';
 import Header from '../Header/Header.js';
 import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
-function Profile({ handleSignOut, onSubmit}) {
+function Profile({ handleSignOut, onUpdateUser }) {
+
+    // Подписка на контекст
+    const currentUser = React.useContext(CurrentUserContext);
 
     // Запуск валидации
-    const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
+    const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid } = useFormAndValidation();
 
     // Хук возвращает функцию, которая позволяет рограммно перемещаться
     const navigate = useNavigate();
 
-    // Очистка полей от ошибок
+    // Обработчик 
+    function handleSubmit(e) {
+        // Запрещаем браузеру переходить по адресу формы
+        e.preventDefault();
+
+        // Передаём значения управляемых компонентов во внешний обработчик
+        onUpdateUser({
+            name: values.name ?? '',
+            email: values.email ?? '',
+        });
+        setIsValid(() => false);
+    }
+
+    // Хук для заполнения полей формы текущими значениями при открытии (после успешной отправки запроса)
     useEffect(() => {
         resetForm();
+        setValues({ name: currentUser.name, email: currentUser.email })
     }, []);
 
-    // Обработчик авторизации
+    // Выход из профиля
     const signOut = (e) => {
         e.preventDefault();
         resetForm();
-        handleSignOut(e);
+        handleSignOut();
         navigate('/', { replace: true });
     }
 
     return (
         <main className="profile">
             <Header />
-            <form className="profile__form" name="profile" noValidate="" onSubmit={onSubmit} isSubmitEnable={isValid}>
-                <h2 className="profile__title">Привет, Виталий!</h2>
+            <form className="profile__form" name="profile" noValidate="" onSubmit={handleSubmit}>
+                <h2 className="profile__title">Привет, {currentUser.name}!</h2>
 
                 <div className="profile__field-conteiner">
                     <div className="profile__field-content">
@@ -67,7 +85,9 @@ function Profile({ handleSignOut, onSubmit}) {
                 </div>
 
                 <button className={`profile__button ${isValid ? "" : "profile__button_disabled"}`}
-                    type="submit" disabled={isValid ? "" : "disabled"}> Редактировать</button>
+                    type="submit"
+                //  disabled={isValid ? "" : "disabled"}
+                > Редактировать</button>
 
                 <button className="profile__button-exit" type="button" onClick={signOut}> Выйти из аккаунта</button>
             </form>

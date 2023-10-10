@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react';
-import * as auth from '../auth.js';
+import { api } from '../../utils/MainApi';
 import UserForm from '../UserForm/UserForm.js';
-import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
 // Компонент для регистрации
-function Register({ onSuccessRegister, onFailRegister }) {
+function Register({ onSuccessRegister, onFailRegister, errMsg }) {
 
     // Запуск валидации
     const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
-
-    // Хук возвращает функцию, которая позволяет рограммно перемещаться
-    const navigate = useNavigate();
 
     // Очистка полей от ошибок
     useEffect(() => {
@@ -23,18 +19,17 @@ function Register({ onSuccessRegister, onFailRegister }) {
     const onRegister = (e) => {
         e.preventDefault();
 
-        auth.register(values.name, values.email, values.password)
+        api.register(values.name, values.email, values.password)
             .then((res) => {
                 try {
-                    onSuccessRegister();
+                    onSuccessRegister(values.email, values.password);
                 } catch (err) {
                     onFailRegister({ body: { error: err } })
                 }
             })
             .catch(err => {
-                err.then(errMsg => {
+                err.msg.then(errMsg => {
                     onFailRegister(errMsg)
-                    console.log(errMsg)
                 }
                 )
             });
@@ -98,6 +93,7 @@ function Register({ onSuccessRegister, onFailRegister }) {
                         onChange={handleChange}
                         placeholder="Пароль"
                     />
+                    {errMsg}
                     <span className={`form__error password-error  ${errors?.password ? "form__error_visible-user" : ""}`}>
                         {errors?.password}</span>
                 </div>

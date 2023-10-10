@@ -21,7 +21,7 @@ function Login({ handleLogin }) {
     const onLogin = (e) => {
         e.preventDefault();
         resetForm();
-        handleLogin(e);
+        handleLogin(values.email, values.password);
         navigate('/movies', { replace: true });
     }
 

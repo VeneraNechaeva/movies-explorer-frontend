@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
-import * as auth from '../auth';
 
 // Импортируем компоненты приложения, которые используем в Роутах
 import Main from '../Main/Main.js';
@@ -24,41 +23,35 @@ function App() {
 
   // Стейт с текстом ошибки
   const [textErrorMessage, setTextErrorMessage] = useState('Что-то пошло не так! Попробуйте ещё раз.');
-
   // Стейт для отображения карточек
   const [cards, setCards] = useState([]);
-
   // Стейт для отображения сохраненных карточек 
   const [savedCards, setSavedCards] = useState([]);
-
-  // Стейт статуса пользователя — вошёл он в систему или нет
-  const [loggedIn, setLoggedIn] = useState(false);
-
   // Хук возвращает функцию, которая позволяет рограммно перемещаться
   const navigate = useNavigate();
 
   // Эффект при монтровании, который проверяет токен
   useEffect(() => {
-    tokenCheck();
+    getUserInfo();
   }, [])
 
   // Функция получает информацию о пользователе из куки
-  const tokenCheck = () => {
+  const getUserInfo = () => {
 
-    auth.getContent().then((res) => {
+    api.getUserInformation().then((res) => {
       if (res) {
         // авторизуем пользователя
         setCurrentUser(() => res);
-        setLoggedIn(true);
+
         navigate("/movies", { replace: true });
 
-        api.getInitialCards()
-          .then((cardsData) => {
-            setCards(cardsData.data);
-          })
-          .catch((err) => {
-            console.log(err); // выведем ошибку в консоль
-          })
+        // api.getInitialCards()
+        //   .then((cardsData) => {
+        //     setCards(cardsData.data);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err); // выведем ошибку в консоль
+        //   })
       }
     })
       .catch((err) => {
@@ -70,40 +63,47 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   // Обработчики событий: изменяют внутреннее состояние
-  
-  // Обратчик успешной РЕГИСТРАЦИИ
-  function handleSuccessRegistr() {
-    navigate('/movies', { replace: true })
-  }
-
-  // Обратчик неудачной РЕГИСТРАЦИИ
-  function handleFailRegister(err) {
-    setTextErrorMessage(() => `Ошибка: ${err.body.error}`);
-  }
- 
-  // Метод, который поменяет статус пользователя
-  function handleLogin(e) {
-    e.preventDefault();
-    tokenCheck();
-    setLoggedIn({
-      loggedIn: true
+  // Обратчик успешной регистрации
+  function handleLogin(email, password) {
+    api.login(email, password).then((res) => {
+      if (res) {
+        getUserInfo();
+      }
     })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
   }
 
-  // // ВРЕМЕННОЕ РЕШЕНИЕ ДЛЯ ОТРИСОВКИ МИНЮ НАВИГАЦИИ
-  // // Обработчик, который поменяет статус пользователя
-  // function handleLogin(e) {
-  //   e.preventDefault();
-  //   setCurrentUser(() => ({
-  //     email: "qwe@qwe.ru"
-  //   }))
-  // }
+  // Обратчик неудачной регистрации
+  function handleFailRegister(err) {
+    setTextErrorMessage(() => `Ошибка: ${err.message}`);
+  }
 
+  // Обратчик редактирования профиля
+  function handleUpdateUser(userData) {
+    api.savetUserInformation(userData.name, userData.email).then(() => {
+      const updatedUserData = Object.assign({}, currentUser);
+      updatedUserData.name = userData.name;
+      updatedUserData.email = userData.email;
+      setCurrentUser(updatedUserData);
+    })
+
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      })
+  }
 
   // Обработчик выхода пользователя из профиля
-  function handleSignOut(e) {
-    e.preventDefault();
-    setCurrentUser(() => ({}))
+  function handleSignOut() {
+    api.signOut().then((res) => {
+      if (res) {
+        setCurrentUser(() => ({}));
+      }
+    })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
   }
 
   // Обработчик, который по клику скопирует фильм в сохраненные
@@ -128,17 +128,17 @@ function App() {
         <div className="page__container">
 
           <Routes>
-          
+
             <Route path="/" element={<Main />} />
-            <Route path="/signup" element={<Register onSuccessRegister={handleSuccessRegistr} onFailRegister={handleFailRegister} />} />
+            <Route path="/signup" element={<Register onSuccessRegister={handleLogin} onFailRegister={handleFailRegister} errMsg={textErrorMessage} />} />
             <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
             <Route path="*" element={<NotFound />} />
 
             {/* Защищённый маршруты */}
             <Route path="/movies" element={<ProtectedRoute element={Movies} cards={cards} handleSaveCard={handleSaveCard}
-              handleDeleteCard={handleDeleteCard} loggedIn={loggedIn} />} />
-            <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} cards={savedCards} handleDeleteCard={handleDeleteCard} loggedIn={loggedIn} />} />
-            <Route path="/profile" element={<ProtectedRoute element={Profile} handleSignOut={handleSignOut} loggedIn={loggedIn} />} />
+              handleDeleteCard={handleDeleteCard} loggedIn={currentUser.email ?? false} />} />
+            <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} cards={savedCards} handleDeleteCard={handleDeleteCard} loggedIn={currentUser.email ?? false} />} />
+            <Route path="/profile" element={<ProtectedRoute element={Profile} handleSignOut={handleSignOut} loggedIn={currentUser.email ?? false} onUpdateUser={handleUpdateUser}/>} />
 
           </Routes>
 
@@ -152,14 +152,14 @@ export default App;
 
 
 
-  // // Эффект при монтровании, вызывает запрос и обновляет стейт-переменную
-  // // из полученного значения
-  // useEffect(() => {
-  //   cardList.forEach((card) => {
-  //     card["durationHuman"] = timeFormat(card["duration"]);
-  //     card["image"]["fullUrl"] = concatUrl(card["image"]["url"]);
-  //     card["isLikeCard"] = false;
-  //   }
-  //   );
-  //   setCards(() => cardList)
-  // }, []);
+// // Эффект при монтровании, вызывает запрос и обновляет стейт-переменную
+// // из полученного значения
+// useEffect(() => {
+//   cardList.forEach((card) => {
+//     card["durationHuman"] = timeFormat(card["duration"]);
+//     card["image"]["fullUrl"] = concatUrl(card["image"]["url"]);
+//     card["isLikeCard"] = false;
+//   }
+//   );
+//   setCards(() => cardList)
+// }, []);
