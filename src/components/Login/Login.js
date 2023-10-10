@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { api } from '../../utils/MainApi';
 import UserForm from '../UserForm/UserForm.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
@@ -14,7 +13,7 @@ function Login({ onLogin, onFailLogin }) {
         resetForm();
     }, []);
 
-    // Обработчик авторизации
+    // Функция для сабмита формы авторизации
     const submitLogin = (e) => {
         e.preventDefault();
         onLogin(values.email, values.password)

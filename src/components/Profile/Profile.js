@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
-function Profile({ handleSignOut, onUpdateUser }) {
+function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser }) {
 
     // Стейт с текстом ошибки
     const [textErrorMessage, setTextErrorMessage] = useState();
@@ -18,24 +18,26 @@ function Profile({ handleSignOut, onUpdateUser }) {
     // Хук возвращает функцию, которая позволяет рограммно перемещаться
     const navigate = useNavigate();
 
-    // Обработчик 
-    function handleSubmit(e) {
-        // Запрещаем браузеру переходить по адресу формы
-        e.preventDefault();
-
-        // Передаём значения управляемых компонентов во внешний обработчик
-        onUpdateUser({
-            name: values.name ?? '',
-            email: values.email ?? '',
-        });
-        setIsValid(() => false);
-    }
-
     // Хук для заполнения полей формы текущими значениями при открытии (после успешной отправки запроса)
     useEffect(() => {
         resetForm();
         setValues({ name: currentUser.name, email: currentUser.email })
     }, []);
+
+    // Функция для сабмита формы профиля
+    const submitProfile = (e) => {
+        e.preventDefault();
+        onUpdateUser({
+            name: values.name ?? '',
+            email: values.email ?? '',
+        })
+            .catch(err => {
+                err.msg.then(errMsg => {
+                    onFailUpdateUser(errMsg, setTextErrorMessage)
+                })
+            });
+        setIsValid(() => false);
+    }
 
     // Выход из профиля
     const signOut = (e) => {
@@ -45,31 +47,10 @@ function Profile({ handleSignOut, onUpdateUser }) {
         navigate('/', { replace: true });
     }
 
-    // // Обработчик регистрации
-    // const onRegister = (e) => {
-    //     e.preventDefault();
-
-    //     api.register(values.name, values.email, values.password)
-    //         .then((res) => {
-    //             try {
-    //                 onSuccessRegister(values.email, values.password);
-    //             } catch (err) {
-    //                 onFailRegister({ body: { error: err } })
-    //             }
-    //         })
-    //         .catch(err => {
-    //             err.msg.then(errMsg => {
-    //                 console.log('errMsg', errMsg)
-    //                 onFailRegister(errMsg, setTextErrorMessage)
-    //             }
-    //             )
-    //         });
-    // }
-
     return (
         <main className="profile">
             <Header />
-            <form className="profile__form" name="profile" noValidate="" onSubmit={handleSubmit}>
+            <form className="profile__form" name="profile" noValidate="" onSubmit={submitProfile}>
                 <h2 className="profile__title">Привет, {currentUser.name}!</h2>
 
                 <div className="profile__field-conteiner">
@@ -114,7 +95,7 @@ function Profile({ handleSignOut, onUpdateUser }) {
                 > Редактировать</button>
 
                 <button className="profile__button-exit" type="button" onClick={signOut}> Выйти из аккаунта</button>
-                {/* <span className={`form__error-server ${values.name || values.email || values.password ? "form__error-server_visible-user" : ""}`}>{errMsg}</span> */}
+                <span className={`profile__error-server ${textErrorMessage ? "profile__error-server_visible-user" : ""}`}>{textErrorMessage}</span>
             </form>
         </main>
 

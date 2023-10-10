@@ -41,7 +41,6 @@ function App() {
       if (res) {
         // авторизуем пользователя
         setCurrentUser(() => res);
-
         navigate("/movies", { replace: true });
 
         // api.getInitialCards()
@@ -62,7 +61,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   // Обработчики событий: изменяют внутреннее состояние
-  // Обратчик успешной регистрации
+  // Обратчик авторизации
   function handleLogin(email, password) {
    return api.login(email, password).then((res) => {
       if (res) {
@@ -71,6 +70,7 @@ function App() {
     })
   }
 
+  // Обработчик регистрации
   function handleRegister(name, email, password) {
     return api.register(name, email, password).then((res) => {
       if (res) {
@@ -79,24 +79,22 @@ function App() {
     })
    }
 
-  // Обратчик неудачной регистрации
-  function handleFailRegister(err, setTextErrorMessage) {
+  // Обработчик неудачной регистрации и авторизации
+  function handleFailRequest(err, setTextErrorMessage) {
     setTextErrorMessage(() => `Ошибка: ${err.message}`);
   }
 
-  // Обратчик редактирования профиля
+  // Обработчик редактирования профиля
   function handleUpdateUser(userData) {
-    api.savetUserInformation(userData.name, userData.email).then(() => {
+    return api.savetUserInformation(userData.name, userData.email).then(() => {
       const updatedUserData = Object.assign({}, currentUser);
       updatedUserData.name = userData.name;
       updatedUserData.email = userData.email;
       setCurrentUser(updatedUserData);
     })
-
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      })
   }
+
+
 
   // Обработчик выхода пользователя из профиля
   function handleSignOut() {
@@ -134,15 +132,15 @@ function App() {
           <Routes>
 
             <Route path="/" element={<Main />} />
-            <Route path="/signup" element={<Register onRegister={handleRegister} onFailRegister={handleFailRegister}  />} />
-            <Route path="/signin" element={<Login onLogin={handleLogin} onFailLogin={handleFailRegister} />} />
+            <Route path="/signup" element={<Register onRegister={handleRegister} onFailRegister={handleFailRequest}  />} />
+            <Route path="/signin" element={<Login onLogin={handleLogin} onFailLogin={handleFailRequest} />} />
             <Route path="*" element={<NotFound />} />
 
             {/* Защищённый маршруты */}
             <Route path="/movies" element={<ProtectedRoute element={Movies} cards={cards} handleSaveCard={handleSaveCard}
               handleDeleteCard={handleDeleteCard} loggedIn={currentUser.email ?? false} />} />
             <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} cards={savedCards} handleDeleteCard={handleDeleteCard} loggedIn={currentUser.email ?? false} />} />
-            <Route path="/profile" element={<ProtectedRoute element={Profile} handleSignOut={handleSignOut} loggedIn={currentUser.email ?? false} onUpdateUser={handleUpdateUser}/>} />
+            <Route path="/profile" element={<ProtectedRoute element={Profile} handleSignOut={handleSignOut} loggedIn={currentUser.email ?? false} onUpdateUser={handleUpdateUser} onFailUpdateUser={handleFailRequest}/>} />
 
           </Routes>
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { api } from '../../utils/MainApi';
 import UserForm from '../UserForm/UserForm.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
@@ -15,7 +14,7 @@ function Register({ onRegister, onFailRegister }) {
         resetForm();
     }, []);
 
-    // Обработчик регистрации
+    // Функция для сабмита формы регистрации
     const submitRegister = (e) => {
         e.preventDefault();
 
