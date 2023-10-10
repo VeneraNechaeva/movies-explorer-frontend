@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
-
+import { apiMovies } from '../../utils/MoviesApi';
 // Импортируем компоненты приложения, которые используем в Роутах
 import Main from '../Main/Main.js';
 import Register from '../Register/Register.js';
 import Login from '../Login/Login.js';
-import Movies from '../Main/Movies.js';
+import Movies from '../Movies/Movies.js';
 import SavedMovies from '../SavedMovies/SavedMovies.js';
 import Profile from '../Profile/Profile.js';
 import NotFound from '../NotFound/NotFound.js';
@@ -63,7 +63,7 @@ function App() {
   // Обработчики событий: изменяют внутреннее состояние
   // Обратчик авторизации
   function handleLogin(email, password) {
-   return api.login(email, password).then((res) => {
+    return api.login(email, password).then((res) => {
       if (res) {
         getUserInfo();
       }
@@ -77,7 +77,7 @@ function App() {
         handleLogin(email, password);
       }
     })
-   }
+  }
 
   // Обработчик неудачной регистрации и авторизации
   function handleFailRequest(err, setTextErrorMessage) {
@@ -93,8 +93,6 @@ function App() {
       setCurrentUser(updatedUserData);
     })
   }
-
-
 
   // Обработчик выхода пользователя из профиля
   function handleSignOut() {
@@ -123,6 +121,50 @@ function App() {
     setSavedCards((state) => state.filter(card => card.id !== cardId))
   }
 
+  // Обработчик поиска фильмов
+  function handleSearch(filmName, isShort) {
+    return apiMovies.getFilms().then((res) => {
+      if (res) {
+
+        res.forEach((card) => {
+          card["durationHuman"] = timeFormat(card["duration"]);
+          card["image"]["fullUrl"] = concatUrl(card["image"]["url"]);
+          card["isLikeCard"] = false;
+        }
+        );
+        const filterdCardsByName = filterFilmsByName(filmName, res)
+        const filterdCardsByDuration = isShort ? filterShortFilms(filterdCardsByName) : filterdCardsByName
+        setCards(() => filterdCardsByDuration)
+      }
+    })
+  }
+
+  // Фильтр поиска фильмов
+  function filterFilmsByName(filmName, cards) {
+    const filmNameWords = switchToLowerCaseAndreplaceTrailingSpace(filmName).split(" ")
+    const filterdCards = cards.filter((card) => {
+      const ruWords = switchToLowerCaseAndreplaceTrailingSpace(card.nameRU).split(" ")
+      const enWords = switchToLowerCaseAndreplaceTrailingSpace(card.nameEN).split(" ")
+      return hasIntersection(filmNameWords, ruWords) || hasIntersection(filmNameWords, enWords)
+    })
+    return filterdCards;
+  }
+
+  // Поиск совпадений в массиве
+  function hasIntersection(a, b) {
+    const setA = new Set(a);
+    return b.filter(value => setA.has(value)).length > 0;
+  }
+
+  // Перевод к нижнему регистру и слияние пробелов
+  function switchToLowerCaseAndreplaceTrailingSpace(str) {
+    return str.toLowerCase().replace(/  +/g, ' ');
+  }
+
+  function filterShortFilms(cards) {
+    return  cards.filter((card) => card.duration <= 40)
+  }
+
   return (
     // Используем провайдер контекста текущего пользователя
     <CurrentUserContext.Provider value={currentUser}>
@@ -132,15 +174,22 @@ function App() {
           <Routes>
 
             <Route path="/" element={<Main />} />
-            <Route path="/signup" element={<Register onRegister={handleRegister} onFailRegister={handleFailRequest}  />} />
+            <Route path="/signup" element={<Register onRegister={handleRegister} onFailRegister={handleFailRequest} />} />
             <Route path="/signin" element={<Login onLogin={handleLogin} onFailLogin={handleFailRequest} />} />
             <Route path="*" element={<NotFound />} />
 
             {/* Защищённый маршруты */}
-            <Route path="/movies" element={<ProtectedRoute element={Movies} cards={cards} handleSaveCard={handleSaveCard}
-              handleDeleteCard={handleDeleteCard} loggedIn={currentUser.email ?? false} />} />
+            <Route path="/movies" element={<ProtectedRoute
+              element={Movies}
+              cards={cards}
+              handleSaveCard={handleSaveCard}
+              handleDeleteCard={handleDeleteCard}
+              loggedIn={currentUser.email ?? false}
+              onSubmitSearch={handleSearch} onErrorSearch={handleFailRequest}
+            />}
+            />
             <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} cards={savedCards} handleDeleteCard={handleDeleteCard} loggedIn={currentUser.email ?? false} />} />
-            <Route path="/profile" element={<ProtectedRoute element={Profile} handleSignOut={handleSignOut} loggedIn={currentUser.email ?? false} onUpdateUser={handleUpdateUser} onFailUpdateUser={handleFailRequest}/>} />
+            <Route path="/profile" element={<ProtectedRoute element={Profile} handleSignOut={handleSignOut} loggedIn={currentUser.email ?? false} onUpdateUser={handleUpdateUser} onFailUpdateUser={handleFailRequest} />} />
 
           </Routes>
 

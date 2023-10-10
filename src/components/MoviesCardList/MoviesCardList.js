@@ -6,8 +6,11 @@ function MoviesCardList({ paddingClassName, cards, handleSaveCard, handleDeleteC
         <section className="movies page__padding">
             <div className={` ${paddingClassName ? paddingClassName : ""}  movies__conteiner`}>
 
-                {cards.map((card) => <MoviesCard {...card} key={card.id} handleSaveCard={handleSaveCard} handleDeleteCard={handleDeleteCard}/>)}
+                {cards.map((card) => <MoviesCard {...card} key={card.id} handleSaveCard={handleSaveCard} handleDeleteCard={handleDeleteCard} />)}
                 {/* <Preloader /> */}
+                {/* <p className="movies_text">Ничего не найдено</p> */}
+                {/* <span className="movies__error-server">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен.
+                    Подождите немного и попробуйте ещё раз</span> */}
             </div>
         </section >
     )

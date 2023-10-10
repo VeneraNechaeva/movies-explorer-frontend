@@ -5,12 +5,12 @@ import SearchForm from '../SearchForm/SearchForm.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 import MoreButton from '../MoreButton/MoreButton.js';
 
-function Movies({ cards, handleSaveCard, handleDeleteCard}) {
+function Movies({ cards, handleSaveCard, handleDeleteCard, onSubmitSearch, onErrorSearch}) {
 
     return (
         <section className="movies-page">
             <Header />
-            <SearchForm />
+            <SearchForm onSubmit={onSubmitSearch} onError={onErrorSearch} />
             <MoviesCardList paddingClassName={"movies__padding-min"} cards={cards} handleSaveCard={handleSaveCard} handleDeleteCard={handleDeleteCard}/>
             <MoreButton />
             <Footer />

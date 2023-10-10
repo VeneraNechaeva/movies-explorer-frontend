@@ -1,6 +1,7 @@
 .search {
     padding-top: 70px;
     padding-bottom: 10px;
+    position: relative;
 }
 
 .search__label {
@@ -52,6 +53,19 @@
     color: #C2C2C2;
     background-color: #5d82bc;
     pointer-events: none;
+}
+
+.search__error {
+    /* display: none; */
+}
+
+.search__error_visible-user {
+    display: block;
+    color: #EE3465;
+    font-weight: 400;
+    font-size: 11px;
+    position: absolute;
+    top: 145px;
 }
 
 @media screen and (max-width: 400px) {
