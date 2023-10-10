@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { api } from '../../utils/MainApi';
 import UserForm from '../UserForm/UserForm.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
 // Компонент для регистрации
-function Register({ onSuccessRegister, onFailRegister, errMsg }) {
-
+function Register({ onSuccessRegister, onFailRegister }) {
+    // Стейт с текстом ошибки
+    const [textErrorMessage, setTextErrorMessage] = useState();
     // Запуск валидации
     const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
 
@@ -13,7 +14,6 @@ function Register({ onSuccessRegister, onFailRegister, errMsg }) {
     useEffect(() => {
         resetForm();
     }, []);
-
 
     // Обработчик регистрации
     const onRegister = (e) => {
@@ -29,7 +29,8 @@ function Register({ onSuccessRegister, onFailRegister, errMsg }) {
             })
             .catch(err => {
                 err.msg.then(errMsg => {
-                    onFailRegister(errMsg)
+                    console.log('errMsg', errMsg)
+                    onFailRegister(errMsg, setTextErrorMessage)
                 }
                 )
             });
@@ -93,11 +94,11 @@ function Register({ onSuccessRegister, onFailRegister, errMsg }) {
                         onChange={handleChange}
                         placeholder="Пароль"
                     />
-                    {errMsg}
                     <span className={`form__error password-error  ${errors?.password ? "form__error_visible-user" : ""}`}>
                         {errors?.password}</span>
                 </div>
             </div>
+            <span className={`form__error-server ${textErrorMessage ? "form__error-server_visible-user" : ""}`}>{textErrorMessage}</span>
         </UserForm>
     )
 }

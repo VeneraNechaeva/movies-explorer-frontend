@@ -21,8 +21,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
 
-  // Стейт с текстом ошибки
-  const [textErrorMessage, setTextErrorMessage] = useState('Что-то пошло не так! Попробуйте ещё раз.');
+
   // Стейт для отображения карточек
   const [cards, setCards] = useState([]);
   // Стейт для отображения сохраненных карточек 
@@ -76,7 +75,7 @@ function App() {
   }
 
   // Обратчик неудачной регистрации
-  function handleFailRegister(err) {
+  function handleFailRegister(err, setTextErrorMessage) {
     setTextErrorMessage(() => `Ошибка: ${err.message}`);
   }
 
@@ -130,8 +129,8 @@ function App() {
           <Routes>
 
             <Route path="/" element={<Main />} />
-            <Route path="/signup" element={<Register onSuccessRegister={handleLogin} onFailRegister={handleFailRegister} errMsg={textErrorMessage} />} />
-            <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+            <Route path="/signup" element={<Register onSuccessRegister={handleLogin} onFailRegister={handleFailRegister}  />} />
+            <Route path="/signin" element={<Login onSuccessLogin={handleLogin} onFailLogin={handleFailRegister} />} />
             <Route path="*" element={<NotFound />} />
 
             {/* Защищённый маршруты */}

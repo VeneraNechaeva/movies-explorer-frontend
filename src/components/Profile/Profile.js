@@ -90,6 +90,7 @@ function Profile({ handleSignOut, onUpdateUser }) {
                 > Редактировать</button>
 
                 <button className="profile__button-exit" type="button" onClick={signOut}> Выйти из аккаунта</button>
+                {/* <span className={`form__error-server ${values.name || values.email || values.password ? "form__error-server_visible-user" : ""}`}>{errMsg}</span> */}
             </form>
         </main>
 

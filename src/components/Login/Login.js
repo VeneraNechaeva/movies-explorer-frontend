@@ -1,28 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { api } from '../../utils/MainApi';
 import UserForm from '../UserForm/UserForm.js';
-import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
-function Login({ handleLogin }) {
-
+function Login({ onSuccessLogin, onFailLogin }) {
+    // Стейт с текстом ошибки
+    const [textErrorMessage, setTextErrorMessage] = useState();
     // Запуск валидации
     const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
-
-    // Хук возвращает функцию, которая позволяет рограммно перемещаться
-    const navigate = useNavigate();
 
     // Очистка полей от ошибок
     useEffect(() => {
         resetForm();
     }, []);
 
-
     // Обработчик авторизации
     const onLogin = (e) => {
         e.preventDefault();
-        resetForm();
-        handleLogin(values.email, values.password);
-        navigate('/movies', { replace: true });
+
+        api.login(values.email, values.password)
+            .then((res) => {
+                try {
+                    onSuccessLogin(values.email, values.password);
+                } catch (err) {
+                    onFailLogin({ body: { error: err } })
+                }
+            })
+            .catch(err => {
+                err.msg.then(errMsg => {
+                    onFailLogin(errMsg, setTextErrorMessage)
+                }
+                )
+            });
     }
 
     return (
@@ -47,7 +56,7 @@ function Login({ handleLogin }) {
                         placeholder="E-mail"
                     />
                     <span className={`form__error email-error  ${errors?.email ? "form__error_visible-user" : ""}`}>
-                    {errors?.email}</span>
+                        {errors?.email}</span>
                 </div>
 
                 <div className="form__field-content">
@@ -65,9 +74,10 @@ function Login({ handleLogin }) {
                         placeholder="Пароль"
                     />
                     <span className={`form__error password-error  ${errors?.password ? "form__error_visible-user" : ""}`}>
-                    {errors?.password}</span>
+                        {errors?.password}</span>
                 </div>
             </div>
+            <span className={`form__error-server ${textErrorMessage ? "form__error-server_visible-user" : ""}`}>{textErrorMessage}</span>
         </UserForm>
     )
 }
