@@ -39,7 +39,11 @@
     }
 }
 
-.preloader {
+.preloader{
+    display: none;
+}
+
+.preloader_visible {
     display: flex;
     align-items: center;
     justify-content: center;

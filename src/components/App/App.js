@@ -12,8 +12,6 @@ import Profile from '../Profile/Profile.js';
 import NotFound from '../NotFound/NotFound.js';
 import ProtectedRoute from '../ProtectedRoute';
 
-// Импортируем временный массив карточек cardList
-import { cardList } from '../../utils/cardList.js';
 import { concatUrl } from '../../utils/utils.js';
 
 // Импортируем объект контекста 
@@ -26,6 +24,12 @@ function App() {
   const [cards, setCards] = useState([]);
   // Стейт для отображения сохраненных карточек 
   const [savedCards, setSavedCards] = useState([]);
+  // Стейт для отображения прелоадера
+  const [isLoading, setIsLoading] = useState(false);
+  // Стейт для отображения в результате поиска "Ничего не найдено"
+  const [isNothingFound, setIsNothingFound] = useState(false);
+  // Стейт с текстом ошибки
+  const [textErrorMessageForSearchForm, setTextErrorMessageForSearchForm] = useState("");
   // Хук возвращает функцию, которая позволяет рограммно перемещаться
   const navigate = useNavigate();
 
@@ -35,7 +39,6 @@ function App() {
   useEffect(() => {
     getUserInfo();
   }, [])
-
 
   // Функция получает информацию о пользователе из куки
   const getUserInfo = () => {
@@ -156,14 +159,17 @@ function App() {
         setSavedCards((state) => state.filter(card => card._id !== _id))
       }
     })
-
   }
 
-  // Обработчик поиска фильмов
+  // Обработчик поиска фильмов в Movies
   function handleSearch(filmName, isShort) {
+    setCards(() => ([]));
+    setIsLoading(() => (true));
+    setIsNothingFound(() => (false));
+    setTextErrorMessageForSearchForm(() => "");
     return apiMovies.getFilms().then((res) => {
       if (res) {
-          //TODO preloader start
+
         res.forEach((card) => {
           card["thumbnail"] = concatUrl(card["image"]["formats"]["thumbnail"]["url"]);
           card["image"] = concatUrl(card["image"]["url"]);
@@ -182,12 +188,21 @@ function App() {
         setSearchParams(() => JSON.parse(localStorage.getItem("searchResult")));
 
         setCards(() => filterdCardsByDuration)
-        //TODO preloader end
+        setIsNothingFound(() => filterdCardsByDuration.length === 0);
       }
-    })
+    }).catch(err => {
+      setTextErrorMessageForSearchForm(() => "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
+    }).finally(() => {
+      setIsLoading(() => (false));
+    });
   }
 
+  // Обработчик поиска фильмов в SavedMovies
   function handleSearchSavedMovies(filmName, isShort) {
+    setSavedCards(() => ([]));
+    setIsLoading(() => (true));
+    setIsNothingFound(() => (false));
+    setTextErrorMessageForSearchForm(() => "");
     return api.getMovie().then((res) => {
       if (res) {
         res.data.forEach((card) => {
@@ -197,8 +212,14 @@ function App() {
         const filterdCardsByName = filterFilmsByName(filmName, res.data)
         const filterdCardsByDuration = isShort ? filterShortFilms(filterdCardsByName) : filterdCardsByName
         setSavedCards(() => filterdCardsByDuration)
+        setIsNothingFound(() => filterdCardsByDuration.length === 0);
       }
-    })
+      setIsLoading(() => (false));
+    }).catch(err => {
+      setTextErrorMessageForSearchForm(() => "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
+    }).finally(() => {
+      setIsLoading(() => (false));
+    });
   }
 
   // Фильтр поиска фильмов
@@ -245,6 +266,11 @@ function App() {
             {/* Защищённый маршруты */}
             <Route path="/movies" element={<ProtectedRoute
               element={Movies}
+
+              isLoading={isLoading}
+              isNothingFound={isNothingFound}
+              textErrorMessageForSearchForm={textErrorMessageForSearchForm}
+
               cards={cards}
               handleSaveCard={handleSaveCard}
               handleDeleteCard={handleDeleteCard}
@@ -257,6 +283,11 @@ function App() {
             />
             <Route path="/saved-movies" element={<ProtectedRoute
               element={SavedMovies}
+
+              isLoading={isLoading}
+              isNothingFound={isNothingFound}
+              textErrorMessageForSearchForm={textErrorMessageForSearchForm}
+
               cards={savedCards}
               handleDeleteCard={handleDeleteCard}
               loggedIn={currentUser.email ?? false}
@@ -272,17 +303,3 @@ function App() {
 }
 
 export default App;
-
-
-
-// // Эффект при монтровании, вызывает запрос и обновляет стейт-переменную
-// // из полученного значения
-// useEffect(() => {
-//   cardList.forEach((card) => {
-//     card["durationHuman"] = timeFormat(card["duration"]);
-//     card["image"]["fullUrl"] = concatUrl(card["image"]["url"]);
-//     card["isLikeCard"] = false;
-//   }
-//   );
-//   setCards(() => cardList)
-// }, []);

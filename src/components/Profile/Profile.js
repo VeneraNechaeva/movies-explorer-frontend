@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser }) {
 
     // Стейт с текстом ошибки
-    const [textErrorMessage, setTextErrorMessage] = useState();
+    const [textErrorMessage, setTextErrorMessage] = useState("");
 
     // Подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);

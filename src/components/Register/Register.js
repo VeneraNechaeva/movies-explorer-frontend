@@ -5,7 +5,7 @@ import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 // Компонент для регистрации
 function Register({ onRegister, onFailRegister }) {
     // Стейт с текстом ошибки
-    const [textErrorMessage, setTextErrorMessage] = useState();
+    const [textErrorMessage, setTextErrorMessage] = useState("");
     // Запуск валидации
     const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
 

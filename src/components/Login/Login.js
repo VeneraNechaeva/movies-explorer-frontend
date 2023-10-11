@@ -4,7 +4,7 @@ import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
 function Login({ onLogin, onFailLogin }) {
     // Стейт с текстом ошибки
-    const [textErrorMessage, setTextErrorMessage] = useState();
+    const [textErrorMessage, setTextErrorMessage] = useState("");
     // Запуск валидации
     const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
 

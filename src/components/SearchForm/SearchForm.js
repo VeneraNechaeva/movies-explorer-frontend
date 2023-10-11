@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
@@ -31,13 +31,7 @@ function SearchForm({ onSubmit, onError, initSearchName, initIsShortFilm }) {
             setTextErrorMessage(() => 'Нужно ввести ключевое слово')
         } else {
             setTextErrorMessage(() => '')
-
             onSubmit(values.search, isShortFilm)
-                .catch(err => {
-                    err.msg.then(errMsg => {
-                        onError(errMsg, setTextErrorMessage)
-                    })
-                });
         }
     })
 
