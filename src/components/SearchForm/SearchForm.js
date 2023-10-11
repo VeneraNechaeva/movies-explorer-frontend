@@ -1,25 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
-function SearchForm({ onSubmit, onError }) {
+function SearchForm({ onSubmit, onError, initSearchName, initIsShortFilm }) {
+
+    // Стейт с текстом ошибки
     const [textErrorMessage, setTextErrorMessage] = useState();
 
-    const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
-    const [isShortFilm, setIsShortFilm] = useState(false);
-    // Очистка полей от ошибок
+    // Запуск валидации
+    const { values, handleChange, errors, isValid, resetForm, setValues } = useFormAndValidation();
+
+    const [isShortFilm, setIsShortFilm] = useState(initIsShortFilm);
+
     useEffect(() => {
-        resetForm();
+        setValues({ ...values, search: initSearchName });
     }, []);
 
+
+    useEffect(() => {
+        if (values.search !== undefined)
+            submitSearch();
+    }, [isShortFilm]);
+
     // Функция для сабмита формы 
-    const submitSearch = (e) => {
-        e.preventDefault();
+    const submitSearch = ((e) => {
+        if (e !== undefined)
+            e.preventDefault();
+        // console.log('values.search', values.search)
         if (!values.search) {
             setTextErrorMessage(() => 'Нужно ввести ключевое слово')
         } else {
             setTextErrorMessage(() => '')
-            console.log('isShortFilm', isShortFilm)
+
             onSubmit(values.search, isShortFilm)
                 .catch(err => {
                     err.msg.then(errMsg => {
@@ -27,6 +39,11 @@ function SearchForm({ onSubmit, onError }) {
                     })
                 });
         }
+    })
+
+    const changeShortFilmChekbox = (e) => {
+        // console.log('setIsShortFilm', !isShortFilm)
+        setIsShortFilm((state) => !state)
     }
 
     return (
@@ -45,7 +62,7 @@ function SearchForm({ onSubmit, onError }) {
                     className="search__button" type="submit">Поиск </button>
             </div>
             <span className={`search__error ${textErrorMessage ? "search__error_visible-user" : ""}`}>{textErrorMessage}</span>
-            <FilterCheckbox onChange={setIsShortFilm} isShort={isShortFilm}/>
+            <FilterCheckbox enabled={values.search ?? false} onChange={changeShortFilmChekbox} initIsShortFilm={isShortFilm} />
         </form >
     )
 }

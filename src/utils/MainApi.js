@@ -66,6 +66,27 @@ class MainApi {
     })
   }
 
+  saveMovie(movie) {
+    return this._sendRequest(`${this._baseUrl}/movies`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(movie)
+    })
+  }
+
+  getMovie() {
+    return this._sendRequest(`${this._baseUrl}/movies`, {
+      method: 'GET',
+      headers: this._headers
+    })
+  }
+
+  deletMovie(movieId) {
+    return this._sendRequest(`${this._baseUrl}/movies/${movieId}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+  }
 
   // // Получить начальные карточки с сервера
   // getInitialCards() {

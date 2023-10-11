@@ -1,4 +1,6 @@
-function MoviesCard({ id, isLikeCard, nameRU, durationHuman, image, handleSaveCard, handleDeleteCard }) {
+import { timeFormat } from '../../utils/utils.js';
+
+function MoviesCard({ _id, id, movieId, isLikeCard, nameRU, duration, image, handleSaveCard, handleDeleteCard }) {
 
     function saveCard(e) {
         e.preventDefault();
@@ -7,9 +9,12 @@ function MoviesCard({ id, isLikeCard, nameRU, durationHuman, image, handleSaveCa
 
     function deleteCard(e) {
         e.preventDefault();
-        handleDeleteCard(id);
+        console.log('movieId', movieId);
+        console.log('_id', _id);
+        handleDeleteCard(movieId, _id);
     }
 
+    const durationHuman = timeFormat(duration);
 
     // Переменные для отображения кнопки
     let buttonClass
@@ -36,7 +41,7 @@ function MoviesCard({ id, isLikeCard, nameRU, durationHuman, image, handleSaveCa
                 <h2 className="card__title">{nameRU}</h2>
                 <p className="card__duration">{durationHuman}</p>
             </div>
-            <img className="card__image" src={image.fullUrl} alt={nameRU} />
+            <img className="card__image" src={image} alt={nameRU} />
             <button className={`card__button ${buttonClass}`} type="button"
                 onClick={buttonHandler}>{buttonText}</button>
         </article >
