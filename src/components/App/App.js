@@ -58,7 +58,7 @@ function App() {
               const searchResult = JSON.parse(localStorage.getItem("searchResult"));
               const storageMovies = searchResult['filterdCardsByDuration'];
 
-              storageMovies.forEach((card) => { 
+              storageMovies.forEach((card) => {
                 const myCard = movies.data.find((savedCard) => savedCard.movieId === card["movieId"]);
                 card["isLikeCard"] = myCard !== undefined;
               });
