@@ -8,8 +8,6 @@ class MoviesApi {
   // Послать запрос
   _sendRequest(url, options) {
 
-    // const optionsWithToken = Object.assign({}, options);
-
     return fetch(url, options)
       .then((res) => {
         if (res.ok) {

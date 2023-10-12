@@ -90,9 +90,7 @@ function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser }) {
                 </div>
 
                 <button className={`profile__button ${isValid ? "" : "profile__button_disabled"}`}
-                    type="submit"
-                //  disabled={isValid ? "" : "disabled"}
-                > Редактировать</button>
+                    type="submit"> Редактировать</button>
 
                 <button className="profile__button-exit" type="button" onClick={signOut}> Выйти из аккаунта</button>
                 <span className={`profile__error-server ${textErrorMessage ? "profile__error-server_visible-user" : ""}`}>{textErrorMessage}</span>

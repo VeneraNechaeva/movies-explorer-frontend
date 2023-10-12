@@ -25,17 +25,14 @@ function Movies({ cards, handleSaveCard, handleDeleteCard, onSubmitSearch, onErr
         } else {
             numCards = initCardsCount + cardsCountIncrement * clicksMoreButtonCount;
         }
-        // console.log('cardsCountIncrement', cardsCountIncrement)
-        // console.log('clicksMoreButtonCount', clicksMoreButtonCount)
-        // console.log('initCardsCount', initCardsCount)
-        // console.log('numCards', numCards)
+       
         setCardsForShow((state) => (cards.slice(0, numCards)));
         setVisibleMoreButton(numCards < cards.length);
     }, [cards, cardsCountIncrement, clicksMoreButtonCount])
 
     useEffect(() => {
         function handleResize() {
-            //  console.log('window.innerWidth', window.innerWidth)
+            
             if (window.innerWidth >= 1280) {
                 setCardsCountIncrement(() => 3)
                 setInitCardsCount(() => 12)
