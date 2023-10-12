@@ -91,7 +91,7 @@ class MainApi {
 
 // Создание экземпляров класса Api
 export const api = new MainApi({
-  baseUrl: 'https://api.movies.nechaeva.nomoredomainsrocks.ru',
+  baseUrl: 'https://api.movies.nechaeva.nomoredomainsicu.ru',
   // baseUrl: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json'
