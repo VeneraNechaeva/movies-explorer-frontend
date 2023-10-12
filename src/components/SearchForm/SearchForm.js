@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
-function SearchForm({ onSubmit, initSearchName, initIsShortFilm }) {
+function SearchForm({ isInitLoadDone, onSubmit, initSearchName, initIsShortFilm }) {
 
     // Стейт с текстом ошибки
     const [textErrorMessage, setTextErrorMessage] = useState();
@@ -16,6 +16,12 @@ function SearchForm({ onSubmit, initSearchName, initIsShortFilm }) {
         setValues({ ...values, search: initSearchName });
     }, []);
 
+    useEffect(() => {
+        if (values.search === "" && isInitLoadDone) {
+            onSubmit("", isShortFilm, true)
+        }
+    }, [values]);
+
 
     useEffect(() => {
         if (values.search !== undefined)
@@ -26,11 +32,11 @@ function SearchForm({ onSubmit, initSearchName, initIsShortFilm }) {
     const submitSearch = ((e) => {
         if (e !== undefined)
             e.preventDefault();
-        if (!values.search) {
+        if (values.search === "") {
             setTextErrorMessage(() => 'Нужно ввести ключевое слово')
         } else {
             setTextErrorMessage(() => '')
-            onSubmit(values.search, isShortFilm)
+            onSubmit(values.search, isShortFilm, false)
         }
     })
 

@@ -39,6 +39,7 @@ function App() {
   const [allCards, setAllCards] = useState([]);
   const [allSavedCards, setAllSavedCards] = useState([]);
 
+  const [isInitLoadDone, setIsInitLoadDone] = useState(false);
   // Эффект при монтровании, который проверяет токен
   useEffect(() => {
     getUserInfo();
@@ -66,6 +67,7 @@ function App() {
               setCards(() => storageMovies);
               setSearchParams(() => searchResult);
             }
+            setIsInitLoadDone(() => true)
             setSavedCards(() => movies.data);
             setAllSavedCards(() => movies.data);
           })
@@ -176,7 +178,8 @@ function App() {
   }
 
   // Обработчик поиска фильмов в Movies
-  function handleSearch(filmName, isShort) {
+  function handleSearch(filmName, isShort, showAll) {
+    // console.log('handleSearch isFirstSearch', allSavedCards, isFirstSearch)
     setIsLoading(() => (true));
     setIsNothingFound(() => (false));
     setTextErrorMessageForSearchForm(() => "");
@@ -203,11 +206,14 @@ function App() {
           setAllCards(() => res);
           filterdCardsByDuration = res;
         }
-        const filterdCardsByName = filterFilmsByName(filmName, res)
+        const filterdCardsByName = filterFilmsByName(filmName, res, showAll)
         filterdCardsByDuration = isShort ? filterShortFilms(filterdCardsByName) : filterdCardsByName
 
         localStorage.setItem('searchResult',
-          JSON.stringify({ filterdCardsByDuration, filmName, isShort }));
+          JSON.stringify({
+             filterdCardsByDuration,
+             filmName, 
+             isShort }));
 
         setSearchParams(() => JSON.parse(localStorage.getItem("searchResult")));
 
@@ -224,8 +230,8 @@ function App() {
   }
 
   // Обработчик поиска фильмов в SavedMovies
-  function handleSearchSavedMovies(filmName, isShort) {
-    // setSavedCards(() => (allSavedCards));
+  function handleSearchSavedMovies(filmName, isShort, showAll) {
+    // console.log('handleSearchSavedMovies')
     setIsLoading(() => (true));
     setIsNothingFound(() => (false));
     setTextErrorMessageForSearchForm(() => "");
@@ -235,7 +241,7 @@ function App() {
           card["isLikeCard"] = true;
         }
         );
-        const filterdCardsByName = filterFilmsByName(filmName, res)
+        const filterdCardsByName = filterFilmsByName(filmName, res, showAll)
         const filterdCardsByDuration = isShort ? filterShortFilms(filterdCardsByName) : filterdCardsByName
         setSavedCards(() => filterdCardsByDuration)
         setIsNothingFound(() => filterdCardsByDuration.length === 0);
@@ -249,22 +255,21 @@ function App() {
   }
 
   // Фильтр поиска фильмов
-  function filterFilmsByName(filmName, cards) {
+  function filterFilmsByName(filmName, cards, showAll) {
     const filmNameWords = switchToLowerCaseAndreplaceTrailingSpace(filmName).split(" ")
-    if (filmNameWords[0] === '*') return cards;
+    if (showAll) return cards;
 
     const filterdCards = cards.filter((card) => {
-      const ruWords = switchToLowerCaseAndreplaceTrailingSpace(card.nameRU).split(" ")
-      const enWords = switchToLowerCaseAndreplaceTrailingSpace(card.nameEN).split(" ")
-      return hasIntersection(filmNameWords, ruWords) || hasIntersection(filmNameWords, enWords)
+      const nameRU = switchToLowerCaseAndreplaceTrailingSpace(card.nameRU)
+      const nameEN = switchToLowerCaseAndreplaceTrailingSpace(card.nameEN)
+      return hasIncludes(nameRU, filmNameWords) || hasIncludes(nameEN, filmNameWords)
     })
     return filterdCards;
   }
 
   // Поиск совпадений в массиве
-  function hasIntersection(a, b) {
-    const setA = new Set(a);
-    return b.filter(value => setA.has(value)).length > 0;
+  function hasIncludes(string, words) {
+    return words.find((word) => string.includes(word));
   }
 
   // Перевод к нижнему регистру и слияние пробелов
@@ -305,6 +310,7 @@ function App() {
               onErrorSearch={handleFailRequest}
               initSearchName={searchParams.filmName ?? ''}
               initIsShortFilm={searchParams.isShort ?? false}
+              isInitLoadDone={isInitLoadDone}
             />}
             />
             <Route path="/saved-movies" element={<ProtectedRoute

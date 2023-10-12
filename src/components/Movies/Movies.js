@@ -6,7 +6,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 import MoreButton from '../MoreButton/MoreButton.js';
 
 function Movies({ cards, handleSaveCard, handleDeleteCard, onSubmitSearch, onErrorSearch, initSearchName,
-    initIsShortFilm, isLoading, isNothingFound, textErrorMessageForSearchForm }) {
+    initIsShortFilm, isLoading, isNothingFound, textErrorMessageForSearchForm, isInitLoadDone }) {
 
     const [cardsCountIncrement, setCardsCountIncrement] = useState(0);
     const [initCardsCount, setInitCardsCount] = useState(0);
@@ -56,7 +56,7 @@ function Movies({ cards, handleSaveCard, handleDeleteCard, onSubmitSearch, onErr
     return (
         <section className="movies-page">
             <Header />
-            <SearchForm onSubmit={onSubmitSearch} onError={onErrorSearch} initSearchName={initSearchName} initIsShortFilm={initIsShortFilm} />
+            <SearchForm isInitLoadDone={isInitLoadDone} onSubmit={onSubmitSearch} onError={onErrorSearch} initSearchName={initSearchName} initIsShortFilm={initIsShortFilm} />
 
             <MoviesCardList paddingClassName={"movies__padding-min"} cards={cardsForShow} handleSaveCard={handleSaveCard}
                 handleDeleteCard={handleDeleteCard} isLoading={isLoading} isNothingFound={isNothingFound}
