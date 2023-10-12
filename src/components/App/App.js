@@ -35,6 +35,10 @@ function App() {
 
   const [searchParams, setSearchParams] = useState({});
 
+  const [isFirstSearch, setIsFirstSearch] = useState(true);
+  const [allCards, setAllCards] = useState([]);
+  const [allSavedCards, setAllSavedCards] = useState([]);
+
   // Эффект при монтровании, который проверяет токен
   useEffect(() => {
     getUserInfo();
@@ -48,14 +52,22 @@ function App() {
         // авторизуем пользователя
         setCurrentUser(() => res);
         navigate("/movies", { replace: true });
-        if ("searchResult" in localStorage) {
-          const searchResult = JSON.parse(localStorage.getItem("searchResult"));
-          setCards(() => searchResult['filterdCardsByDuration']);
-          setSearchParams(() => searchResult);
-        }
         api.getMovie()
           .then((movies) => {
+            if ("searchResult" in localStorage) {
+              const searchResult = JSON.parse(localStorage.getItem("searchResult"));
+              const storageMovies = searchResult['filterdCardsByDuration'];
+
+              storageMovies.forEach((card) => { 
+                const myCard = movies.data.find((savedCard) => savedCard.movieId === card["movieId"]);
+                card["isLikeCard"] = myCard !== undefined;
+              });
+
+              setCards(() => storageMovies);
+              setSearchParams(() => searchResult);
+            }
             setSavedCards(() => movies.data);
+            setAllSavedCards(() => movies.data);
           })
           .catch((err) => {
             console.log(err); // выведем ошибку в консоль
@@ -143,6 +155,7 @@ function App() {
         likedCard["isLikeCard"] = true;
         likedCard["_id"] = res.data["_id"];
         setSavedCards((state) => ([res.data, ...state]));
+        setAllSavedCards((state) => ([res.data, ...state]));
       }
     })
   }
@@ -156,31 +169,42 @@ function App() {
         if (unlikedCard !== undefined)
           unlikedCard['isLikeCard'] = false
 
-        setSavedCards((state) => state.filter(card => card._id !== _id))
+        setSavedCards((state) => state.filter(card => card._id !== _id));
+        setAllSavedCards((state) => state.filter(card => card._id !== _id));
       }
     })
   }
 
   // Обработчик поиска фильмов в Movies
   function handleSearch(filmName, isShort) {
-    setCards(() => ([]));
     setIsLoading(() => (true));
     setIsNothingFound(() => (false));
     setTextErrorMessageForSearchForm(() => "");
-    return apiMovies.getFilms().then((res) => {
+
+    let moviesSource;
+    if (isFirstSearch) {
+      moviesSource = apiMovies.getFilms();
+    } else {
+      moviesSource = Promise.resolve(allCards);
+    }
+    return moviesSource.then((res) => {
       if (res) {
 
-        res.forEach((card) => {
-          card["thumbnail"] = concatUrl(card["image"]["formats"]["thumbnail"]["url"]);
-          card["image"] = concatUrl(card["image"]["url"]);
-          card["movieId"] = card["id"];
-          const myCard = savedCards.find((savedCard) => savedCard.movieId === card["movieId"]);
-          card["isLikeCard"] = myCard !== undefined;
-          card["_id"] = myCard !== undefined ? myCard["_id"] : null;
+        let filterdCardsByDuration = [];
+        if (isFirstSearch) {
+          res.forEach((card) => {
+            card["thumbnail"] = concatUrl(card["image"]["formats"]["thumbnail"]["url"]);
+            card["image"] = concatUrl(card["image"]["url"]);
+            card["movieId"] = card["id"];
+            const myCard = savedCards.find((savedCard) => savedCard.movieId === card["movieId"]);
+            card["isLikeCard"] = myCard !== undefined;
+            card["_id"] = myCard !== undefined ? myCard["_id"] : null;
+          });
+          setAllCards(() => res);
+          filterdCardsByDuration = res;
         }
-        );
         const filterdCardsByName = filterFilmsByName(filmName, res)
-        const filterdCardsByDuration = isShort ? filterShortFilms(filterdCardsByName) : filterdCardsByName
+        filterdCardsByDuration = isShort ? filterShortFilms(filterdCardsByName) : filterdCardsByName
 
         localStorage.setItem('searchResult',
           JSON.stringify({ filterdCardsByDuration, filmName, isShort }));
@@ -189,27 +213,29 @@ function App() {
 
         setCards(() => filterdCardsByDuration)
         setIsNothingFound(() => filterdCardsByDuration.length === 0);
+        setIsFirstSearch(() => false);
       }
     }).catch(err => {
       setTextErrorMessageForSearchForm(() => "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
     }).finally(() => {
       setIsLoading(() => (false));
     });
+
   }
 
   // Обработчик поиска фильмов в SavedMovies
   function handleSearchSavedMovies(filmName, isShort) {
-    setSavedCards(() => ([]));
+    // setSavedCards(() => (allSavedCards));
     setIsLoading(() => (true));
     setIsNothingFound(() => (false));
     setTextErrorMessageForSearchForm(() => "");
-    return api.getMovie().then((res) => {
+    return Promise.resolve(allSavedCards).then((res) => {
       if (res) {
-        res.data.forEach((card) => {
+        res.forEach((card) => {
           card["isLikeCard"] = true;
         }
         );
-        const filterdCardsByName = filterFilmsByName(filmName, res.data)
+        const filterdCardsByName = filterFilmsByName(filmName, res)
         const filterdCardsByDuration = isShort ? filterShortFilms(filterdCardsByName) : filterdCardsByName
         setSavedCards(() => filterdCardsByDuration)
         setIsNothingFound(() => filterdCardsByDuration.length === 0);

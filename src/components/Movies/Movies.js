@@ -10,21 +10,24 @@ function Movies({ cards, handleSaveCard, handleDeleteCard, onSubmitSearch, onErr
 
     const [cardsCountIncrement, setCardsCountIncrement] = useState(0);
     const [initCardsCount, setInitCardsCount] = useState(0);
-    const [clicksMoreButtonCount, setClicksMoreButtonCount] = useState(1);
+    const [clicksMoreButtonCount, setClicksMoreButtonCount] = useState(0);
     const [cardsForShow, setCardsForShow] = useState([]);
     const [visibleMoreButton, setVisibleMoreButton] = useState(false);
 
     useEffect(() => {
-        setClicksMoreButtonCount(() => 1);
+        setClicksMoreButtonCount(() => 0);
     }, [cards])
 
     useEffect(() => {
         let numCards = 0;
-        if (cardsForShow.length === 0) {
+        if (cardsForShow.length === 0 || clicksMoreButtonCount === 0) {
             numCards = initCardsCount;
         } else {
-            numCards = cardsCountIncrement * clicksMoreButtonCount;
+            numCards = initCardsCount + cardsCountIncrement * clicksMoreButtonCount;
         }
+        // console.log('cardsCountIncrement', cardsCountIncrement)
+        // console.log('clicksMoreButtonCount', clicksMoreButtonCount)
+        // console.log('initCardsCount', initCardsCount)
         // console.log('numCards', numCards)
         setCardsForShow((state) => (cards.slice(0, numCards)));
         setVisibleMoreButton(numCards < cards.length);
@@ -32,7 +35,7 @@ function Movies({ cards, handleSaveCard, handleDeleteCard, onSubmitSearch, onErr
 
     useEffect(() => {
         function handleResize() {
-            // console.log('window.innerWidth', window.innerWidth)
+            //  console.log('window.innerWidth', window.innerWidth)
             if (window.innerWidth >= 1280) {
                 setCardsCountIncrement(() => 3)
                 setInitCardsCount(() => 12)
