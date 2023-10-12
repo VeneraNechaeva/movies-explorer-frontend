@@ -14,3 +14,6 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE
 IP 158.160.116.226
 
 Backend https://movies.nechaeva.nomoredomainsrocks.ru
+
+## Ссылки на пул реквест
+https://github.com/VeneraNechaeva/movies-explorer-frontend/pull/2
