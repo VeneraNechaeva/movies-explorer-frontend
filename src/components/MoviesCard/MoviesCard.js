@@ -9,8 +9,6 @@ function MoviesCard({ _id, id, movieId, trailerLink, isLikeCard, nameRU, duratio
 
     function deleteCard(e) {
         e.preventDefault();
-        console.log('movieId', movieId);
-        console.log('_id', _id);
         handleDeleteCard(movieId, _id);
     }
 
