@@ -16,7 +16,7 @@ class MainApi {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject({code: res.status, msg: res.json()});
+        return Promise.reject({ code: res.status, msg: res.json() });
       })
   }
 
@@ -29,7 +29,7 @@ class MainApi {
     })
   };
 
-   // Функция для авторизации пользователя
+  // Функция для авторизации пользователя
   login(email, password) {
     return this._sendRequest(`${this._baseUrl}/signin`, {
       method: 'POST',
@@ -91,8 +91,8 @@ class MainApi {
 
 // Создание экземпляров класса Api
 export const api = new MainApi({
-  // baseUrl: 'https://api.movies.nechaeva.nomoredomainsicu.ru',
-  baseUrl: 'http://localhost:3001',
+  baseUrl: 'https://api.movies.nechaeva.nomoredomainsicu.ru',
+  // baseUrl: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json'
   }
