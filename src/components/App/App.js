@@ -124,8 +124,12 @@ function App() {
       if (res) {
         localStorage.removeItem('searchResult');
         setCards(() => ([]));
+        setSavedCards(() => ([]));
         setSearchParams(() => ({}));
         setCurrentUser(() => ({}));
+        setAllCards(() => ([]));
+        setIsFirstSearch(() => (true));
+        setIsInitLoadDone(() => (false));
       }
     })
       .catch((err) => {
@@ -323,7 +327,8 @@ function App() {
               cards={savedCards}
               handleDeleteCard={handleDeleteCard}
               loggedIn={currentUser.email ?? false}
-              onSubmitSearch={handleSearchSavedMovies} />} />
+              onSubmitSearch={handleSearchSavedMovies}
+              isInitLoadDone={isInitLoadDone} />} />
             <Route path="/profile" element={<ProtectedRoute element={Profile} handleSignOut={handleSignOut} loggedIn={currentUser.email ?? false} onUpdateUser={handleUpdateUser} onFailUpdateUser={handleFailRequest} />} />
 
           </Routes>

@@ -12,24 +12,29 @@ function SearchForm({ isInitLoadDone, onSubmit, initSearchName, initIsShortFilm 
 
     const [isShortFilm, setIsShortFilm] = useState(initIsShortFilm);
 
+    const [wasClickedSearch, setWasClickedSearch] = useState(false);
+
     useEffect(() => {
         setValues({ ...values, search: initSearchName });
     }, []);
 
     useEffect(() => {
-        if (values.search === "" && isInitLoadDone) {
+        if (values.search === "" && isInitLoadDone && wasClickedSearch) {
             onSubmit("", isShortFilm, true)
         }
     }, [values]);
 
 
     useEffect(() => {
-        if (values.search !== undefined)
+        if (values.search !== undefined) {
             submitSearch();
+        }
+
     }, [isShortFilm]);
 
     // Функция для сабмита формы 
     const submitSearch = ((e) => {
+        setWasClickedSearch(() => (true));
         if (e !== undefined)
             e.preventDefault();
         if (values.search === "") {
