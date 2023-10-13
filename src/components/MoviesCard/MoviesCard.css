@@ -24,6 +24,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    z-index: 1;
+}
+
+.card__title:hover {
+    overflow: visible;
+    cursor: default;
 }
 
 .card__duration {
