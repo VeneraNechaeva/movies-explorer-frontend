@@ -11,6 +11,7 @@ import SavedMovies from '../SavedMovies/SavedMovies.js';
 import Profile from '../Profile/Profile.js';
 import NotFound from '../NotFound/NotFound.js';
 import ProtectedRoute from '../ProtectedRoute';
+import Popup from '../Popup/Popup';
 import { concatUrl, filterFilmsByName, filterShortFilms } from '../../utils/utils.js';
 import { ERR_MSG_SEARCH_FORM } from '../../utils/const';
 // Импортируем объект контекста 
@@ -35,6 +36,8 @@ function App() {
   const [allSavedCards, setAllSavedCards] = useState([]);
 
   const [isInitLoadDone, setIsInitLoadDone] = useState(false);
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -101,7 +104,7 @@ function App() {
       return err.msg.then(errMsg => {
         return Promise.reject(errMsg);
       })
-  });
+    });
   }
 
   // Обработчик регистрации
@@ -114,7 +117,7 @@ function App() {
       return err.msg.then(errMsg => {
         return Promise.reject(errMsg);
       })
-  });
+    });
   }
 
   // Обработчик неудачной регистрации и авторизации
@@ -131,6 +134,17 @@ function App() {
       setCurrentUser(updatedUserData);
     })
   }
+
+    // Обработчик для попапа успешного редактирования профиля
+    function handleSuccessEditProfile() {
+      setIsPopupOpen(() => true);
+    }
+
+    // Закрытие попапа
+    function closePopup() {
+      setIsPopupOpen(() => (false));
+
+    }
 
   // Обработчик выхода пользователя из профиля
   function handleSignOut() {
@@ -201,7 +215,6 @@ function App() {
 
   // Обработчик поиска фильмов в Movies
   function handleSearch(filmName, isShort, showAll) {
-    // console.log('handleSearch isFirstSearch', allSavedCards, isFirstSearch)
     setIsLoading(() => (true));
     setIsNothingFound(() => (false));
     setTextErrorMessageForSearchForm(() => "");
@@ -255,7 +268,6 @@ function App() {
 
   // Обработчик поиска фильмов в SavedMovies
   function handleSearchSavedMovies(filmName, isShort, showAll) {
-    // console.log('handleSearchSavedMovies')
     setIsLoading(() => (true));
     setIsNothingFound(() => (false));
     setTextErrorMessageForSearchForm(() => "");
@@ -273,7 +285,6 @@ function App() {
       }
       setIsLoading(() => (false));
     }).catch(err => {
-      console.log("err", err)
       setTextErrorMessageForSearchForm(() => ERR_MSG_SEARCH_FORM);
     }).finally(() => {
       setIsLoading(() => (false));
@@ -286,12 +297,14 @@ function App() {
       <div className="page">
         <div className="page__container">
 
+          <Popup isOpen={isPopupOpen} onClose={closePopup}/>
+
           <Routes>
 
             <Route path="/" element={<Main />} />
             <Route path="/signup" element={<Register onRegister={handleRegister} onFailRegister={handleFailRequest} />} />
             <Route path="/signin" element={<Login onLogin={handleLogin} onFailLogin={handleFailRequest} />} />
-            <Route path="*" element={<NotFound/>} />
+            <Route path="*" element={<NotFound />} />
 
             {/* Защищённый маршруты */}
             <Route path="/movies" element={<ProtectedRoute
@@ -333,8 +346,11 @@ function App() {
                   handleSignOut={handleSignOut}
                   loggedIn={currentUser.email ?? false}
                   onUpdateUser={handleUpdateUser}
-                  onFailUpdateUser={handleFailRequest} 
-                  isInitLoadDone={isInitLoadDone}/>
+                  onFailUpdateUser={handleFailRequest}
+                  isInitLoadDone={isInitLoadDone} 
+
+                  onSuccessUpdateUserPopup={handleSuccessEditProfile}
+                  />
               } />
 
           </Routes>

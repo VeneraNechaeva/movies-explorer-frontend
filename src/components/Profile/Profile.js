@@ -6,7 +6,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { isValidEmail, isValidName } from '../../utils/validation.js';
 import { VALIDATION_NAME_MSG, VALIDATION_EMAIL_MSG } from '../../utils/const.js'
 
-function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser }) {
+function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser, onSuccessUpdateUserPopup }) {
 
     // Стейт с текстом ошибки
     const [textErrorMessage, setTextErrorMessage] = useState("");
@@ -50,8 +50,7 @@ function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser }) {
             name: values.name ?? '',
             email: values.email ?? '',
         }).then(() => {
-            alert("Редактирование завершено успешно!")
-            console.log("Здесь логика успешной операции редактирования профиля!")
+            onSuccessUpdateUserPopup();
         } )
             .catch(err => {
                 err.msg.then(errMsg => {
