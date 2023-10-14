@@ -23,7 +23,7 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 20px;
-    width: 50%;
+    width: 95%;
 }
 
 .search__field:focus {
@@ -41,6 +41,7 @@
     font-size: 14px;
     cursor: pointer;
     transition-duration: 0.4s;
+    margin-left: 5px;
 }
 
 .search__button:hover {
@@ -53,10 +54,6 @@
     color: #C2C2C2;
     background-color: #5d82bc;
     pointer-events: none;
-}
-
-.search__error {
-    /* display: none; */
 }
 
 .search__error_visible-user {
