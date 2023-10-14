@@ -1,13 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import UserForm from '../UserForm/UserForm.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
+import { isValidEmail, isValidName } from '../../utils/validation.js';
+import { VALIDATION_NAME_MSG, VALIDATION_EMAIL_MSG } from '../../utils/const.js'
 
 // Компонент для регистрации
 function Register({ onRegister, onFailRegister }) {
     // Стейт с текстом ошибки
     const [textErrorMessage, setTextErrorMessage] = useState("");
     // Запуск валидации
-    const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
+    const { values, handleChange, errors, isValid, resetForm } =
+        useFormAndValidation(
+            {
+                name: {
+                    func: isValidName,
+                    errMsg: VALIDATION_NAME_MSG
+                },
+                email: {
+                    func: isValidEmail,
+                    errMsg: VALIDATION_EMAIL_MSG
+                }
+            });
 
     // Очистка полей от ошибок
     useEffect(() => {
@@ -19,13 +32,9 @@ function Register({ onRegister, onFailRegister }) {
         e.preventDefault();
 
         onRegister(values.name, values.email, values.password)
-            .catch(err => {
-                err.msg.then(errMsg => {
-                    console.log('errMsg', errMsg)
-                    onFailRegister(errMsg, setTextErrorMessage)
-                }
-                )
-            });
+        .catch(errMsg => {
+            onFailRegister(errMsg, setTextErrorMessage)
+        });
     }
 
     return (
@@ -50,7 +59,7 @@ function Register({ onRegister, onFailRegister }) {
                         placeholder="Имя"
                     />
                     <span className={`form__error email-error  ${errors?.name ? "form__error_visible-user" : ""}`}>
-                        {errors?.email}</span>
+                        {errors?.name}</span>
                 </div>
 
 

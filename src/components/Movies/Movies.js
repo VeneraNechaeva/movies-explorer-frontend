@@ -4,9 +4,29 @@ import Footer from '../Footer/Footer.js';
 import SearchForm from '../SearchForm/SearchForm.js';
 import MoviesCardList from '../MoviesCardList/MoviesCardList.js';
 import MoreButton from '../MoreButton/MoreButton.js';
+import {
+    CARDS_SCREEN_WIDTH_BIG, 
+    CARDS_COUNT_INCREMENT_BIG, 
+    CARDS_COUNT_INITIAL_BIG, 
+    CARDS_SCREEN_WIDTH_MEDIUM,
+    CARDS_COUNT_INCREMENT_MEDIUM,
+    CARDS_COUNT_INITIAL_MEDIUM,
+    CARDS_COUNT_INCREMENT_SMALL,
+    CARDS_COUNT_INITIAL_SMALL
+} from '../../utils/const.js'
 
-function Movies({ cards, handleSaveCard, handleDeleteCard, onSubmitSearch, onErrorSearch, initSearchName,
-    initIsShortFilm, isLoading, isNothingFound, textErrorMessageForSearchForm, isInitLoadDone }) {
+function Movies({ 
+    cards, 
+    handleSaveCard, 
+    handleDeleteCard, 
+    onSubmitSearch, 
+    onErrorSearch, 
+    initSearchName,
+    initIsShortFilm, 
+    isLoading, 
+    isNothingFound, 
+    textErrorMessageForSearchForm, 
+    isInitLoadDone }) {
 
     const [cardsCountIncrement, setCardsCountIncrement] = useState(0);
     const [initCardsCount, setInitCardsCount] = useState(0);
@@ -28,26 +48,29 @@ function Movies({ cards, handleSaveCard, handleDeleteCard, onSubmitSearch, onErr
        
         setCardsForShow((state) => (cards.slice(0, numCards)));
         setVisibleMoreButton(numCards < cards.length);
-    }, [cards, cardsCountIncrement, clicksMoreButtonCount])
+    }, [cards, cardsCountIncrement, clicksMoreButtonCount, initCardsCount])
 
     useEffect(() => {
-        function handleResize() {
-            
-            if (window.innerWidth >= 1280) {
-                setCardsCountIncrement(() => 3)
-                setInitCardsCount(() => 12)
-            } else if (window.innerWidth >= 768) {
-                setCardsCountIncrement(() => 2)
-                setInitCardsCount(() => 8)
+        function handleResize() { 
+            if (window.innerWidth >= CARDS_SCREEN_WIDTH_BIG) {
+                setCardsCountIncrement(() => CARDS_COUNT_INCREMENT_BIG)
+                setInitCardsCount(() => CARDS_COUNT_INITIAL_BIG)
+            } else if (window.innerWidth >= CARDS_SCREEN_WIDTH_MEDIUM) {
+                setCardsCountIncrement(() => CARDS_COUNT_INCREMENT_MEDIUM)
+                setInitCardsCount(() => CARDS_COUNT_INITIAL_MEDIUM)
             } else {
-                setCardsCountIncrement(() => 2)
-                setInitCardsCount(() => 5)
+                setCardsCountIncrement(() => CARDS_COUNT_INCREMENT_SMALL)
+                setInitCardsCount(() => CARDS_COUNT_INITIAL_SMALL)
             }
+
         }
-        window.addEventListener("resize", handleResize);
-        handleResize();
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+
+        const timer = setInterval(() => {
+            handleResize()
+        }, 1000);
+        handleResize()
+        return () => clearInterval(timer);
+      });
 
     function handleMoreButtonClick() {
         setClicksMoreButtonCount((state) => (state + 1))
@@ -56,7 +79,13 @@ function Movies({ cards, handleSaveCard, handleDeleteCard, onSubmitSearch, onErr
     return (
         <section className="movies-page">
             <Header />
-            <SearchForm isInitLoadDone={isInitLoadDone} onSubmit={onSubmitSearch} onError={onErrorSearch} initSearchName={initSearchName} initIsShortFilm={initIsShortFilm} />
+            <SearchForm 
+            isInitLoadDone={isInitLoadDone} 
+            onSubmit={onSubmitSearch} 
+            onError={onErrorSearch} 
+            initSearchName={initSearchName} 
+            initIsShortFilm={initIsShortFilm}
+            allowChecboxOnEmptySearchInput={false} />
 
             <MoviesCardList paddingClassName={"movies__padding-min"} cards={cardsForShow} handleSaveCard={handleSaveCard}
                 handleDeleteCard={handleDeleteCard} isLoading={isLoading} isNothingFound={isNothingFound}

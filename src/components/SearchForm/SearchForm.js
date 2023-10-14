@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 
-function SearchForm({ isInitLoadDone, onSubmit, initSearchName, initIsShortFilm }) {
-
+function SearchForm({ isInitLoadDone, onSubmit, initSearchName, initIsShortFilm, allowChecboxOnEmptySearchInput }) {
     // Стейт с текстом ошибки
     const [textErrorMessage, setTextErrorMessage] = useState();
 
@@ -15,8 +14,12 @@ function SearchForm({ isInitLoadDone, onSubmit, initSearchName, initIsShortFilm 
     const [wasClickedSearch, setWasClickedSearch] = useState(false);
 
     useEffect(() => {
+        setIsShortFilm(() => initIsShortFilm);
+    }, [initIsShortFilm]);
+
+    useEffect(() => {
         setValues({ ...values, search: initSearchName });
-    }, []);
+    }, [initSearchName]);
 
     useEffect(() => {
         if (values.search === "" && isInitLoadDone && wasClickedSearch) {
@@ -26,10 +29,11 @@ function SearchForm({ isInitLoadDone, onSubmit, initSearchName, initIsShortFilm 
 
 
     useEffect(() => {
-        if (values.search !== undefined) {
+        if (values.search !== "" && values.search !==undefined) {
             submitSearch();
+        } else if (allowChecboxOnEmptySearchInput) {
+            onSubmit("", isShortFilm, true)
         }
-
     }, [isShortFilm]);
 
     // Функция для сабмита формы 
@@ -64,8 +68,8 @@ function SearchForm({ isInitLoadDone, onSubmit, initSearchName, initIsShortFilm 
                 <button
                     className="search__button" type="submit">Поиск </button>
             </div>
-            <span className={`search__error ${textErrorMessage ? "search__error_visible-user" : ""}`}>{textErrorMessage}</span>
-            <FilterCheckbox enabled={values.search ?? false} onChange={changeShortFilmChekbox} initIsShortFilm={isShortFilm} />
+            <span className={`search__error ${textErrorMessage !== "" ? "search__error_visible-user" : ""}`}>{textErrorMessage}</span>
+            <FilterCheckbox enabled={(allowChecboxOnEmptySearchInput) || (values.search ?? false)} onChange={changeShortFilmChekbox} initIsShortFilm={isShortFilm} />
         </form >
     )
 }

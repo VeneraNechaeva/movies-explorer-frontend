@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Route, Routes } from 'react-router-dom';
+import { useNavigate, Route, Routes, useLocation } from 'react-router-dom';
 import { api } from '../../utils/MainApi';
 import { apiMovies } from '../../utils/MoviesApi';
 // Импортируем компоненты приложения, которые используем в Роутах
@@ -11,14 +11,12 @@ import SavedMovies from '../SavedMovies/SavedMovies.js';
 import Profile from '../Profile/Profile.js';
 import NotFound from '../NotFound/NotFound.js';
 import ProtectedRoute from '../ProtectedRoute';
-
-import { concatUrl } from '../../utils/utils.js';
-
+import { concatUrl, filterFilmsByName, filterShortFilms } from '../../utils/utils.js';
+import { ERR_MSG_SEARCH_FORM } from '../../utils/const';
 // Импортируем объект контекста 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
-
 
   // Стейт для отображения карточек
   const [cards, setCards] = useState([]);
@@ -30,9 +28,6 @@ function App() {
   const [isNothingFound, setIsNothingFound] = useState(false);
   // Стейт с текстом ошибки
   const [textErrorMessageForSearchForm, setTextErrorMessageForSearchForm] = useState("");
-  // Хук возвращает функцию, которая позволяет рограммно перемещаться
-  const navigate = useNavigate();
-
   const [searchParams, setSearchParams] = useState({});
 
   const [isFirstSearch, setIsFirstSearch] = useState(true);
@@ -40,19 +35,23 @@ function App() {
   const [allSavedCards, setAllSavedCards] = useState([]);
 
   const [isInitLoadDone, setIsInitLoadDone] = useState(false);
+
+  const navigate = useNavigate();
+
   // Эффект при монтровании, который проверяет токен
   useEffect(() => {
     getUserInfo();
   }, [])
 
+  const location = useLocation();
+
   // Функция получает информацию о пользователе из куки
   const getUserInfo = () => {
-
     api.getUserInformation().then((res) => {
       if (res) {
         // авторизуем пользователя
         setCurrentUser(() => res);
-        navigate("/movies", { replace: true });
+
         api.getMovie()
           .then((movies) => {
             if ("searchResult" in localStorage) {
@@ -67,9 +66,16 @@ function App() {
               setCards(() => storageMovies);
               setSearchParams(() => searchResult);
             }
+
             setIsInitLoadDone(() => true)
             setSavedCards(() => movies.data);
             setAllSavedCards(() => movies.data);
+
+            if (location.pathname === "/signin") {
+              navigate("/movies", { replace: true });
+            } else {
+              navigate(location.pathname, { replace: true });
+            }
           })
           .catch((err) => {
             console.log(err); // выведем ошибку в консоль
@@ -91,7 +97,11 @@ function App() {
       if (res) {
         getUserInfo();
       }
-    })
+    }).catch(err => {
+      return err.msg.then(errMsg => {
+        return Promise.reject(errMsg);
+      })
+  });
   }
 
   // Обработчик регистрации
@@ -100,7 +110,11 @@ function App() {
       if (res) {
         handleLogin(email, password);
       }
-    })
+    }).catch(err => {
+      return err.msg.then(errMsg => {
+        return Promise.reject(errMsg);
+      })
+  });
   }
 
   // Обработчик неудачной регистрации и авторизации
@@ -163,7 +177,9 @@ function App() {
         setSavedCards((state) => ([res.data, ...state]));
         setAllSavedCards((state) => ([res.data, ...state]));
       }
-    })
+    }).catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
   }
 
   // Обработчик удаления фильма
@@ -178,7 +194,9 @@ function App() {
         setSavedCards((state) => state.filter(card => card._id !== _id));
         setAllSavedCards((state) => state.filter(card => card._id !== _id));
       }
-    })
+    }).catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
   }
 
   // Обработчик поиска фильмов в Movies
@@ -187,6 +205,7 @@ function App() {
     setIsLoading(() => (true));
     setIsNothingFound(() => (false));
     setTextErrorMessageForSearchForm(() => "");
+    setCards(() => ([]));
 
     let moviesSource;
     if (isFirstSearch) {
@@ -215,9 +234,10 @@ function App() {
 
         localStorage.setItem('searchResult',
           JSON.stringify({
-             filterdCardsByDuration,
-             filmName, 
-             isShort }));
+            filterdCardsByDuration,
+            filmName,
+            isShort
+          }));
 
         setSearchParams(() => JSON.parse(localStorage.getItem("searchResult")));
 
@@ -226,7 +246,7 @@ function App() {
         setIsFirstSearch(() => false);
       }
     }).catch(err => {
-      setTextErrorMessageForSearchForm(() => "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
+      setTextErrorMessageForSearchForm(() => ERR_MSG_SEARCH_FORM);
     }).finally(() => {
       setIsLoading(() => (false));
     });
@@ -247,42 +267,17 @@ function App() {
         );
         const filterdCardsByName = filterFilmsByName(filmName, res, showAll)
         const filterdCardsByDuration = isShort ? filterShortFilms(filterdCardsByName) : filterdCardsByName
+
         setSavedCards(() => filterdCardsByDuration)
         setIsNothingFound(() => filterdCardsByDuration.length === 0);
       }
       setIsLoading(() => (false));
     }).catch(err => {
-      setTextErrorMessageForSearchForm(() => "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз");
+      console.log("err", err)
+      setTextErrorMessageForSearchForm(() => ERR_MSG_SEARCH_FORM);
     }).finally(() => {
       setIsLoading(() => (false));
     });
-  }
-
-  // Фильтр поиска фильмов
-  function filterFilmsByName(filmName, cards, showAll) {
-    const filmNameWords = switchToLowerCaseAndreplaceTrailingSpace(filmName).split(" ")
-    if (showAll) return cards;
-
-    const filterdCards = cards.filter((card) => {
-      const nameRU = switchToLowerCaseAndreplaceTrailingSpace(card.nameRU)
-      const nameEN = switchToLowerCaseAndreplaceTrailingSpace(card.nameEN)
-      return hasIncludes(nameRU, filmNameWords) || hasIncludes(nameEN, filmNameWords)
-    })
-    return filterdCards;
-  }
-
-  // Поиск совпадений в массиве
-  function hasIncludes(string, words) {
-    return words.find((word) => string.includes(word));
-  }
-
-  // Перевод к нижнему регистру и слияние пробелов
-  function switchToLowerCaseAndreplaceTrailingSpace(str) {
-    return str.toLowerCase().trim().replace(/  +/g, ' ');
-  }
-
-  function filterShortFilms(cards) {
-    return cards.filter((card) => card.duration <= 40)
   }
 
   return (
@@ -296,7 +291,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/signup" element={<Register onRegister={handleRegister} onFailRegister={handleFailRequest} />} />
             <Route path="/signin" element={<Login onLogin={handleLogin} onFailLogin={handleFailRequest} />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound/>} />
 
             {/* Защищённый маршруты */}
             <Route path="/movies" element={<ProtectedRoute
@@ -328,8 +323,19 @@ function App() {
               handleDeleteCard={handleDeleteCard}
               loggedIn={currentUser.email ?? false}
               onSubmitSearch={handleSearchSavedMovies}
+              initSearchName={''}
+              initIsShortFilm={false}
               isInitLoadDone={isInitLoadDone} />} />
-            <Route path="/profile" element={<ProtectedRoute element={Profile} handleSignOut={handleSignOut} loggedIn={currentUser.email ?? false} onUpdateUser={handleUpdateUser} onFailUpdateUser={handleFailRequest} />} />
+            <Route path="/profile"
+              element={
+                <ProtectedRoute
+                  element={Profile}
+                  handleSignOut={handleSignOut}
+                  loggedIn={currentUser.email ?? false}
+                  onUpdateUser={handleUpdateUser}
+                  onFailUpdateUser={handleFailRequest} 
+                  isInitLoadDone={isInitLoadDone}/>
+              } />
 
           </Routes>
 

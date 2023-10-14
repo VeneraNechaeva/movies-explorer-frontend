@@ -3,6 +3,8 @@ import Header from '../Header/Header.js';
 import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
+import { isValidEmail, isValidName } from '../../utils/validation.js';
+import { VALIDATION_NAME_MSG, VALIDATION_EMAIL_MSG } from '../../utils/const.js'
 
 function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser }) {
 
@@ -13,7 +15,18 @@ function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser }) {
     const currentUser = React.useContext(CurrentUserContext);
 
     // Запуск валидации
-    const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid } = useFormAndValidation();
+    const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid } =
+        useFormAndValidation(
+            {
+                name: {
+                    func: isValidName,
+                    errMsg: VALIDATION_NAME_MSG
+                },
+                email: {
+                    func: isValidEmail,
+                    errMsg: VALIDATION_EMAIL_MSG
+                }
+            });
 
     // Хук возвращает функцию, которая позволяет рограммно перемещаться
     const navigate = useNavigate();
@@ -21,8 +34,14 @@ function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser }) {
     // Хук для заполнения полей формы текущими значениями при открытии (после успешной отправки запроса)
     useEffect(() => {
         resetForm();
-        setValues({ name: currentUser.name, email: currentUser.email })
+        setValues({ name: currentUser.name, email: currentUser.email });
     }, []);
+
+    useEffect(() => {
+        if (values.name === currentUser.name && values.email === currentUser.email) {
+            setIsValid(() => false);
+        }
+    }, [values]);
 
     // Функция для сабмита формы профиля
     const submitProfile = (e) => {
@@ -30,7 +49,10 @@ function Profile({ handleSignOut, onUpdateUser, onFailUpdateUser }) {
         onUpdateUser({
             name: values.name ?? '',
             email: values.email ?? '',
-        })
+        }).then(() => {
+            alert("Редактирование завершено успешно!")
+            console.log("Здесь логика успешной операции редактирования профиля!")
+        } )
             .catch(err => {
                 err.msg.then(errMsg => {
                     onFailUpdateUser(errMsg, setTextErrorMessage)

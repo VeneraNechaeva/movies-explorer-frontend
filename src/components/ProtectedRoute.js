@@ -3,9 +3,15 @@ import { Navigate } from "react-router-dom";
 
 // Компонент высшего порядка (НОС) для защиты маршрутов
 const ProtectedRoute = ({ element: Component, ...props }) => {
-  return (
-    props.loggedIn ? <Component {...props} /> : <Navigate to="/signin" replace />
-  )
+  if (props.loggedIn) {
+    return (
+      <Component {...props} />
+    )
+  } else {
+    return (
+      <Navigate to={"/"} />
+    ) 
+  }
 };
 
 export default ProtectedRoute;

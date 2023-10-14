@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 // Хук для контроля любого количества инпутов в любых формах
-export function useFormAndValidation() {
+export function useFormAndValidation(customValidators) {
     // Стейт переменные
     // Cодержатся значения инпутов
     const [values, setValues] = useState({});
@@ -14,8 +14,15 @@ export function useFormAndValidation() {
     const handleChange = (e) => {
         const { name, value } = e.target
         setValues({ ...values, [name]: value });
-        setErrors({ ...errors, [name]: e.target.validationMessage });
-        setIsValid(e.target.closest('form').checkValidity());
+        const isDefaultValidationPass = e.target.closest('form').checkValidity()
+
+        if (customValidators !== undefined && customValidators[name] !== undefined && value !== "" && !customValidators[name].func(value)) {
+            setErrors({ ...errors, [name]: customValidators[name].errMsg });
+            setIsValid(false);
+        } else {
+            setErrors({ ...errors, [name]: e.target.validationMessage });
+            setIsValid(isDefaultValidationPass);
+        }
     };
 
     // Очистка полей от ошибок

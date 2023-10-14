@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import UserForm from '../UserForm/UserForm.js';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
+import { isValidEmail } from '../../utils/validation.js';
+import { VALIDATION_EMAIL_MSG } from '../../utils/const.js'
 
 function Login({ onLogin, onFailLogin }) {
     // Стейт с текстом ошибки
     const [textErrorMessage, setTextErrorMessage] = useState("");
     // Запуск валидации
-    const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
+    const { values, handleChange, errors, isValid, resetForm } =
+        useFormAndValidation(
+            {
+                email: {
+                    func: isValidEmail,
+                    errMsg: VALIDATION_EMAIL_MSG
+                }
+            });
 
     // Очистка полей от ошибок
     useEffect(() => {
@@ -17,10 +26,8 @@ function Login({ onLogin, onFailLogin }) {
     const submitLogin = (e) => {
         e.preventDefault();
         onLogin(values.email, values.password)
-            .catch(err => {
-                err.msg.then(errMsg => {
-                    onFailLogin(errMsg, setTextErrorMessage)
-                })
+            .catch(errMsg => {
+                onFailLogin(errMsg, setTextErrorMessage)
             });
     }
 
