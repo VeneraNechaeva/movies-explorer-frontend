@@ -74,7 +74,7 @@ function App() {
             setSavedCards(() => movies.data);
             setAllSavedCards(() => movies.data);
 
-            if (location.pathname === "/signin") {
+            if (location.pathname === "/signin" || location.pathname === "/signup") {
               navigate("/movies", { replace: true });
             } else {
               navigate(location.pathname, { replace: true });
@@ -135,16 +135,16 @@ function App() {
     })
   }
 
-    // Обработчик для попапа успешного редактирования профиля
-    function handleSuccessEditProfile() {
-      setIsPopupOpen(() => true);
-    }
+  // Обработчик для попапа успешного редактирования профиля
+  function handleSuccessEditProfile() {
+    setIsPopupOpen(() => true);
+  }
 
-    // Закрытие попапа
-    function closePopup() {
-      setIsPopupOpen(() => (false));
+  // Закрытие попапа
+  function closePopup() {
+    setIsPopupOpen(() => (false));
 
-    }
+  }
 
   // Обработчик выхода пользователя из профиля
   function handleSignOut() {
@@ -297,7 +297,7 @@ function App() {
       <div className="page">
         <div className="page__container">
 
-          <Popup isOpen={isPopupOpen} onClose={closePopup}/>
+          <Popup isOpen={isPopupOpen} onClose={closePopup} />
 
           <Routes>
 
@@ -347,10 +347,10 @@ function App() {
                   loggedIn={currentUser.email ?? false}
                   onUpdateUser={handleUpdateUser}
                   onFailUpdateUser={handleFailRequest}
-                  isInitLoadDone={isInitLoadDone} 
+                  isInitLoadDone={isInitLoadDone}
 
                   onSuccessUpdateUserPopup={handleSuccessEditProfile}
-                  />
+                />
               } />
 
           </Routes>
