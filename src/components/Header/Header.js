@@ -4,6 +4,7 @@ import Navigation from '../Navigation/Navigation.js';
 import HamburgerButton from '../HamburgerButton/HamburgerButton.js';
 import { Link } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { BURGER_SCREEN_WIDTH } from '../../utils/const.js'
 
 function Header({ lightСlassName }) {
 
@@ -29,12 +30,11 @@ function Header({ lightСlassName }) {
     // Функция, которая проверяет ширину экрана, меняет стейт отбражения кнопки гамбургер-меню
     useEffect(() => {
         function handleResize() {
-
-            if (currentUser.email && window.innerWidth <= 800) {
+            if (currentUser.email && window.innerWidth <= BURGER_SCREEN_WIDTH) {
                 setShowMenu(() => wasClicked)
                 setShowUnloginMenu(() => false)
                 setShowHamburgerMenuButton(() => true);
-            } else if (currentUser.email && window.innerWidth > 800) {
+            } else if (currentUser.email && window.innerWidth > BURGER_SCREEN_WIDTH) {
                 setShowHamburgerMenuButton(() => false);
                 setShowMenu(() => true)
                 setShowUnloginMenu(() => true)
@@ -46,7 +46,7 @@ function Header({ lightСlassName }) {
         window.addEventListener("resize", handleResize);
         handleResize();
         return () => window.removeEventListener("resize", handleResize);
-    }, [wasClicked]);
+    }, [wasClicked, currentUser]);
 
     return (
         <header className={` ${lightСlassName ? lightСlassName : "header"}  page__padding-min`}>
@@ -57,7 +57,7 @@ function Header({ lightСlassName }) {
                     alt="сервис Movies" />
             </Link>
             <Navigation showMenu={showMenu} showUnloginMenu={showUnloginMenu} isBurgerMenu={showHamburgerMenuButton}
-                iconСlassName={` ${lightСlassName && window.innerWidth > 800 ? "navigation__account-icon navigation__account-icon_light" : "navigation__account-icon"}`} />
+                iconСlassName={` ${lightСlassName && window.innerWidth > BURGER_SCREEN_WIDTH ? "navigation__account-icon navigation__account-icon_light" : "navigation__account-icon"}`} />
             <HamburgerButton isShown={showHamburgerMenuButton} onClick={handleHamburgerMenuClick} wasClicked={wasClicked} />
         </header>
     )

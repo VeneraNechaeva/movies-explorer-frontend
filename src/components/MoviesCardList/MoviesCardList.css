@@ -1,5 +1,6 @@
 .movies {
     padding-top: 70px;
+    position: relative;
 }
 
 .movies__conteiner {
@@ -15,6 +16,30 @@
 
 .movies__padding-max {
     padding-bottom: 245px;
+}
+
+.movies__text{
+    display: none;
+}
+
+.movies__text_visible{
+    display: block;
+    margin: 0;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.movies__error-server{
+    display: none;
+}
+
+.movies__error-server_visible-user {
+    display: block;
+    color: #EE3465;
+    font-weight: 400;
+    font-size: 11px;
+    position: absolute;
+    top: 100px;
 }
 
 @media screen and (max-width: 800px) {

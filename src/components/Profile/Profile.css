@@ -4,6 +4,7 @@
     align-items: center;
     padding-top: 74px;
     padding-bottom: 70px;
+    position: relative;
 }
 
 .profile__title {
@@ -110,6 +111,19 @@
     font-size: 10px;
     position: absolute;
     top: 35px;
+}
+
+.profile__error-server {
+    display: none;
+}
+
+.profile__error-server_visible-user {
+    display: block;
+    color: #EE3465;
+    font-weight: 400;
+    font-size: 11px;
+    position: absolute;
+    bottom: 140px;
 }
 
 @media screen and (max-width: 800px) {

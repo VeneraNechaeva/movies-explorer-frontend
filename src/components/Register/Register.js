@@ -1,33 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserForm from '../UserForm/UserForm.js';
-import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
+import { isValidEmail, isValidName } from '../../utils/validation.js';
+import { VALIDATION_NAME_MSG, VALIDATION_EMAIL_MSG } from '../../utils/const.js'
 
-function Register() {
-
+// Компонент для регистрации
+function Register({ onRegister, onFailRegister }) {
+    // Стейт с текстом ошибки
+    const [textErrorMessage, setTextErrorMessage] = useState("");
     // Запуск валидации
-    const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
-
-    // Хук возвращает функцию, которая позволяет рограммно перемещаться
-    const navigate = useNavigate();
+    const { values, handleChange, errors, isValid, resetForm } =
+        useFormAndValidation(
+            {
+                name: {
+                    func: isValidName,
+                    errMsg: VALIDATION_NAME_MSG
+                },
+                email: {
+                    func: isValidEmail,
+                    errMsg: VALIDATION_EMAIL_MSG
+                }
+            });
 
     // Очистка полей от ошибок
     useEffect(() => {
         resetForm();
     }, []);
 
-
-    // Обработчик регистрации
-    const onRegister = (e) => {
+    // Функция для сабмита формы регистрации
+    const submitRegister = (e) => {
         e.preventDefault();
-        resetForm();
-        navigate('/signin', { replace: true });
+
+        onRegister(values.name, values.email, values.password)
+        .catch(errMsg => {
+            onFailRegister(errMsg, setTextErrorMessage)
+        });
     }
 
     return (
         <UserForm name="register" title="Добро пожаловать!" buttonText="Зарегистрироваться"
             text="Уже зарегистрированы?" textLink="Войти" redirect="/signin"
-            onSubmit={onRegister} isSubmitEnable={isValid}
+            onSubmit={submitRegister} isSubmitEnable={isValid}
         >
             <div className="form__field-conteiner">
 
@@ -46,7 +59,7 @@ function Register() {
                         placeholder="Имя"
                     />
                     <span className={`form__error email-error  ${errors?.name ? "form__error_visible-user" : ""}`}>
-                    {errors?.email}</span>
+                        {errors?.name}</span>
                 </div>
 
 
@@ -65,7 +78,7 @@ function Register() {
                         placeholder="E-mail"
                     />
                     <span className={`form__error email-error  ${errors?.email ? "form__error_visible-user" : ""}`}>
-                    {errors?.email}</span>
+                        {errors?.email}</span>
                 </div>
 
                 <div className="form__field-content">
@@ -83,9 +96,10 @@ function Register() {
                         placeholder="Пароль"
                     />
                     <span className={`form__error password-error  ${errors?.password ? "form__error_visible-user" : ""}`}>
-                    {errors?.password}</span>
+                        {errors?.password}</span>
                 </div>
             </div>
+            <span className={`form__error-server ${textErrorMessage ? "form__error-server_visible-user" : ""}`}>{textErrorMessage}</span>
         </UserForm>
     )
 }

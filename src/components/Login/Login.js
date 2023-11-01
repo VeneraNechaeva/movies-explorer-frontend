@@ -1,34 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserForm from '../UserForm/UserForm.js';
-import { useNavigate } from 'react-router-dom';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation.js';
+import { isValidEmail } from '../../utils/validation.js';
+import { VALIDATION_EMAIL_MSG } from '../../utils/const.js'
 
-function Login({ handleLogin }) {
-
+function Login({ onLogin, onFailLogin }) {
+    // Стейт с текстом ошибки
+    const [textErrorMessage, setTextErrorMessage] = useState("");
     // Запуск валидации
-    const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
-
-    // Хук возвращает функцию, которая позволяет рограммно перемещаться
-    const navigate = useNavigate();
+    const { values, handleChange, errors, isValid, resetForm } =
+        useFormAndValidation(
+            {
+                email: {
+                    func: isValidEmail,
+                    errMsg: VALIDATION_EMAIL_MSG
+                }
+            });
 
     // Очистка полей от ошибок
     useEffect(() => {
         resetForm();
     }, []);
 
-
-    // Обработчик авторизации
-    const onLogin = (e) => {
+    // Функция для сабмита формы авторизации
+    const submitLogin = (e) => {
         e.preventDefault();
-        resetForm();
-        handleLogin(e);
-        navigate('/movies', { replace: true });
+        onLogin(values.email, values.password)
+            .catch(errMsg => {
+                onFailLogin(errMsg, setTextErrorMessage)
+            });
     }
 
     return (
         <UserForm name="login" title="Рады видеть!" buttonText="Войти"
             text="Ещё не зарегистрированы?" textLink="Регистрация" redirect="/signup"
-            onSubmit={onLogin} isSubmitEnable={isValid}
+            onSubmit={submitLogin} isSubmitEnable={isValid}
         >
             <div className="form__field-conteiner-log">
 
@@ -47,7 +53,7 @@ function Login({ handleLogin }) {
                         placeholder="E-mail"
                     />
                     <span className={`form__error email-error  ${errors?.email ? "form__error_visible-user" : ""}`}>
-                    {errors?.email}</span>
+                        {errors?.email}</span>
                 </div>
 
                 <div className="form__field-content">
@@ -65,9 +71,10 @@ function Login({ handleLogin }) {
                         placeholder="Пароль"
                     />
                     <span className={`form__error password-error  ${errors?.password ? "form__error_visible-user" : ""}`}>
-                    {errors?.password}</span>
+                        {errors?.password}</span>
                 </div>
             </div>
+            <span className={`form__error-server ${textErrorMessage ? "form__error-server_visible-user" : ""}`}>{textErrorMessage}</span>
         </UserForm>
     )
 }
