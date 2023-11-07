@@ -1,5 +1,5 @@
-# movies-explorer-frontend
-Репозиторий для приложения проекта `Movies`, фронтенд части. 
+# Movies
+Репозиторий для приложения проекта `Movies`, фронтенд части. сервис, в котором можно найти фильмы по запросу и сохранить в личном кабинете. Реализована регистрация и авторизация.
 
 ## Макет 
 dark-4
@@ -9,11 +9,6 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE
 
 Адрес репозитория: https://github.com/VeneraNechaeva/movies-explorer-frontend.git
 
-## Ссылки на проект
+## Ссылки на страницу
 
-IP 158.160.116.226
-
-Backend https://movies.nechaeva.nomoredomainsrocks.ru
-
-## Ссылки на пул реквест
-https://github.com/VeneraNechaeva/movies-explorer-frontend/pull/2
+Frontend https://movies.nechaeva.nomoredomainsrocks.ru
